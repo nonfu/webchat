@@ -22,7 +22,7 @@ return [
     'event_handlers'           => [],
     'websocket'                => [
         'enable' => true,
-        'handler' => \App\Services\WebSocketHandler::class,
+        'handler' => \App\Services\WebSocket\WebSocketHandler::class,
     ],
     'sockets'                  => [],
     'processes'                => [
@@ -51,9 +51,9 @@ return [
     'swoole_tables'            => [],
     'register_providers'       => [],
     'cleaners'                 => [
-        //Hhxsv5\LaravelS\Illuminate\Cleaners\SessionCleaner::class, // If you use the session or authentication in your project, please uncomment this line
+        \Hhxsv5\LaravelS\Illuminate\Cleaners\SessionCleaner::class, // If you use the session or authentication in your project, please uncomment this line
         \Hhxsv5\LaravelS\Illuminate\Cleaners\AuthCleaner::class,    // If you use the authentication or passport in your project, please uncomment this line
-        //Hhxsv5\LaravelS\Illuminate\Cleaners\JWTCleaner::class,     // If you use the package "tymon/jwt-auth" in your project, please uncomment this line
+        \Hhxsv5\LaravelS\Illuminate\Cleaners\JWTCleaner::class,     // If you use the package "tymon/jwt-auth" in your project, please uncomment this line
         // ...
     ],
     'destroy_controllers'      => [
@@ -85,6 +85,8 @@ return [
         'enable_reuse_port'  => true,
         'enable_coroutine'   => false,
         'http_compression'   => false,
+        'heartbeat_idle_time' => 600,
+        'heartbeat_check_interval' => 60,
 
         // Slow log
         // 'request_slowlog_timeout' => 2,

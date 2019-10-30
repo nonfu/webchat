@@ -4,19 +4,15 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 import Vue from 'vue';
-import App from './layout/App';
-import router from './router';
-import store from './store';
-
-// 使用museui组件
-import MuseUI from 'muse-ui';
-
+import App from './layout/App';  //app layout
+import router from './router';   // router
+import store from './store';     // store
+import MuseUI from 'muse-ui';    // muse-ui组件
+import vuePicturePreview from './components/photo-viewer';
 import socket from './socket';
 import {queryString} from './utils/queryString';
 
-import vuePicturePreview from './components/photo-viewer';
 Vue.use(vuePicturePreview);
-
 Vue.use(MuseUI);
 Vue.config.productionTip = false;
 
@@ -41,7 +37,7 @@ const popNotice = function(msgInfo) {
 };
 
 socket.on('connect', async () => {
-    console.log('connect');
+    console.log('websocket connected: ' + socket.connected);
     const roomId = queryString(window.location.href, 'roomId');
     const userId = store.state.userInfo.userid;
     if (userId) {
@@ -71,7 +67,7 @@ socket.on('connect', async () => {
 });
 
 socket.on('disconnect', () => {
-    console.log('disconnect');
+    console.log('websocket disconnected:' + socket.disconnected);
     store.commit('setDiscount', true);
 });
 
@@ -105,10 +101,11 @@ document.addEventListener('click', (e) => {
 
 /* eslint-disable no-new */
 new Vue({
+    el: '#app',
     router,
     store,
     template: '<App/>',
     components: {App}
-}).$mount('#app');
+});
 
 

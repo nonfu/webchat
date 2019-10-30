@@ -17,7 +17,7 @@
         "laravel-mix": "^4.0.7",
         "lodash": "^4.17.5",
         "muse-ui": "^3.0.2",
-        "popper.js": "^1.12",
+        "popper.js": "^1.16.0",
         "resolve-url-loader": "^2.3.1",
         "sass": "^1.23.1",
         "sass-loader": "7.*",

@@ -1,5 +1,5 @@
 <template>
-  <div id="applayout">
+  <div id="app">
     <router-view></router-view>
     <lg-preview></lg-preview>
     <!--tab选项卡-->
