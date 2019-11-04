@@ -4,9 +4,9 @@
     </div>
     <div class="content">
       <form action="" name="form2">
-        <mu-text-field label="帐号" labelFloat name="username"/>
+        <mu-text-field v-model="username" label="账号" label-float icon="account_circle" full-width></mu-text-field>
         <br/>
-        <mu-text-field label="密码" type="password" labelFloat name="password"/>
+        <mu-text-field v-model="password" type="password" label="密码" label-float icon="locked" full-width></mu-text-field>
         <br/>
         <div class="btn-radius" @click="submit">登录</div>
       </form>
@@ -26,13 +26,15 @@ import socket from '../socket';
 export default {
   data() {
     return {
-      loading: ""
+        loading: "",
+        username: "",
+        password: ""
     };
   },
   methods: {
     async submit() {
-      const name = document.form2.username.value.trim();
-      const password = document.form2.password.value.trim();
+      const name = this.username.trim();
+      const password = this.password.trim();
       if (name !== "" && password !== "") {
         const data = {
           name: name,
@@ -41,17 +43,21 @@ export default {
         const res = await this.$store.dispatch("loginSubmit", data);
         if (res.status === "success") {
           Toast({
-            content: res.data.data,
+            content: res.data.message,
             timeout: 1000,
             background: "#2196f3"
           });
           this.$store.commit("setUserInfo", {
-            type: "userid",
-            value: res.data.name
+              type: "userid",
+              value: res.data.user.email
+          });
+          this.$store.commit("setUserInfo", {
+              type: "token",
+              value: res.data.user.api_token
           });
           this.$store.commit("setUserInfo", {
             type: "src",
-            value: res.data.src
+            value: res.data.user.avatar
           });
           this.getSvgModal.$root.$options.clear();
           this.$store.commit("setSvgModal", null);
@@ -59,7 +65,7 @@ export default {
           socket.emit("login", { name });
         } else {
           Alert({
-            content: res.data.data
+            content: res.data.message
           });
         }
         document.form2.reset();

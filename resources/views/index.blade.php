@@ -8,6 +8,9 @@
 
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
 
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
     <title>Laravel学院在线聊天室</title>
 
     <script type='text/javascript'>
@@ -15,9 +18,7 @@
     </script>
 </head>
 <body>
-    <div id="app">
-        <router-view></router-view>
-    </div>
+    <div id="app"></div>
     <script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
 </body>
 </html>

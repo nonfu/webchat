@@ -1,5 +1,5 @@
 import axios from 'axios';
-const baseURL = '/api/';
+const baseURL = '/api';
 
 const instance = axios.create();
 
@@ -19,7 +19,6 @@ instance.interceptors.request.use(async config => {
     if (config.url && config.url.charAt(0) === '/') {
         config.url = `${baseURL}${config.url}`;
     }
-
     return config;
 }, error => Promise.reject(error));
 

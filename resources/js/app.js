@@ -7,13 +7,15 @@ import Vue from 'vue';
 import App from './layout/App';  //app layout
 import router from './router';   // router
 import store from './store';     // store
-import MuseUI from 'muse-ui';    // muse-ui组件
-import vuePicturePreview from './components/photo-viewer';
 import socket from './socket';
 import {queryString} from './utils/queryString';
 
-Vue.use(vuePicturePreview);
+import MuseUI from 'muse-ui';    // muse-ui组件
 Vue.use(MuseUI);
+
+import vuePicturePreview from './components/photo-viewer';
+Vue.use(vuePicturePreview);
+
 Vue.config.productionTip = false;
 
 const Notification = window.Notification;

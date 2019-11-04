@@ -16,10 +16,9 @@
         "jquery": "^3.2",
         "laravel-mix": "^4.0.7",
         "lodash": "^4.17.5",
-        "muse-ui": "^3.0.2",
         "popper.js": "^1.16.0",
         "resolve-url-loader": "^2.3.1",
-        "sass": "^1.23.1",
+        "sass": "^1.23.3",
         "sass-loader": "7.*",
         "socket.io-client": "^2.3.0",
         "stylus": "^0.54.7",
@@ -35,5 +34,8 @@
         "vue-template-compiler": "^2.6.10",
         "vuex": "^3.1.1",
         "xss-filters-es6": "^1.0.0"
+    },
+    "dependencies": {
+        "muse-ui": "^3.0.2"
     }
 }

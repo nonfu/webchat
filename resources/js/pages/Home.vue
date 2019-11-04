@@ -13,23 +13,35 @@
     </div>
     <div class="content">
       <mu-list>
-        <mu-list-item title="修改头像" @click="changeAvatar">
-          <mu-icon slot="left" value="send"/>
+        <mu-list-item button @click="changeAvatar">
+          <mu-list-item-action>
+            <mu-icon slot="left" value="send"/>
+          </mu-list-item-action>
+          <mu-list-item-title>修改头像</mu-list-item-title>
         </mu-list-item>
-        <mu-list-item title="赞助一下" @click="handleTips">
-          <mu-icon slot="left" value="inbox"/>
+        <mu-list-item button @click="handleTips">
+          <mu-list-item-action>
+            <mu-icon slot="left" value="inbox"/>
+          </mu-list-item-action>
+          <mu-list-item-title>赞助一下</mu-list-item-title>
         </mu-list-item>
-        <mu-list-item title="github地址" @click="handleGithub">
-          <mu-icon slot="left" value="grade"/>
+        <mu-list-item button @click="handleGithub">
+          <mu-list-item-action>
+            <mu-icon slot="left" value="grade"/>
+          </mu-list-item-action>
+          <mu-list-item-title>Github地址</mu-list-item-title>
         </mu-list-item>
-        <mu-list-item title="清除缓存" @click="rmLocalData">
-          <mu-icon slot="left" value="drafts"/>
+        <mu-list-item button @click="rmLocalData">
+          <mu-list-item-action>
+            <mu-icon slot="left" value="drafts"/>
+          </mu-list-item-action>
+          <mu-list-item-title>清除缓存</mu-list-item-title>
         </mu-list-item>
       </mu-list>
       <!--<mu-divider/>-->
     </div>
     <div class="logout">
-      <mu-raised-button @click="logout" label="退出" class="demo-raised-button" fullWidth/>
+      <mu-button @click="logout" class="demo-raised-button" full-width>退出</mu-button>
     </div>
     <div style="height:80px"></div>
   </div>
@@ -86,6 +98,10 @@ export default {
           value: ""
         });
         this.$store.commit("setUserInfo", {
+          type: "token",
+          value: ""
+        });
+        this.$store.commit("setUserInfo", {
           type: "src",
           value: ""
         });
@@ -99,14 +115,16 @@ export default {
     },
     handleGithub() {
       Alert({
-        content: "https://github.com/hua1995116/webchat"
+        content: "https://github.com/nonfu/webchat"
       });
     },
     handleTips() {
       Alert({
-        title: "请我喝杯奶茶",
+        title: "请我喝杯咖啡",
         html:
-          '<div><img style="width: 200px" src="//s3.qiufengh.com/money/WechatIMG64.jpeg" /></div>'
+          '<div>' +
+            '<img style="width: 200px;" src="https://qcdn.xueyuanjun.com/wp-content/uploads/2019/05/e7156cfe0196dd7d7ea4f8f5f10b8d1a.jpeg" />' +
+            '</div>'
       });
     }
   },
