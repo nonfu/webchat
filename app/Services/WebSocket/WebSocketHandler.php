@@ -2,7 +2,6 @@
 namespace App\Services\WebSocket;
 
 use App\Services\WebSocket\SocketIO\Packet;
-use App\Services\WebSocket\SocketIO\SocketIOParser;
 use Hhxsv5\LaravelS\Swoole\WebSocketHandlerInterface;
 use Illuminate\Support\Facades\Log;
 use Swoole\Http\Request;
@@ -22,13 +21,14 @@ class WebSocketHandler implements WebSocketHandlerInterface
 
     public function __construct()
     {
-        $this->websocket = app(WebSocket::class);
-        $this->parser = app(SocketIOParser::class);
+        $this->websocket = app('swoole.websocket');
+        $this->parser = app('swoole.parser');
     }
 
     // 连接建立时触发
     public function onOpen(Server $server, Request $request)
     {
+        // 如果未建立连接，先建立连接
         if (!request()->input('sid')) {
             // 初始化连接信息 socket.io-client
             $payload = json_encode([
@@ -42,20 +42,10 @@ class WebSocketHandler implements WebSocketHandlerInterface
             $server->push($request->fd, $initPayload);
             $server->push($request->fd, $connectPayload);
         }
-
         Log::info('WebSocket 连接建立:' . $request->fd);
-
-        // 发送欢迎信息
-        $payload = [
-            'sender'    => $request->fd,
-            'fds'       => [$request->fd],
-            'broadcast' => false,
-            'assigned'  => false,
-            'event'     => 'message',
-            'message'   => '欢迎访问聊天室',
-        ];
-        $pusher = Pusher::make($payload, $server);
-        $pusher->push($this->parser->encode($pusher->getEvent(), $pusher->getMessage()));
+        if ($this->websocket->eventExists('connect')) {
+            $this->websocket->call('connect', $request);
+        }
     }
 
     // 收到消息时触发
@@ -68,21 +58,22 @@ class WebSocketHandler implements WebSocketHandlerInterface
         }
         $payload = $this->parser->decode($frame);
         ['event' => $event, 'data' => $data] = $payload;
-        $payload = [
-            'sender' => $frame->fd,
-            'fds'    => [$frame->fd],
-            'broadcast' => false,
-            'assigned'  => false,
-            'event'     => $event,
-            'message'   => $data,
-        ];
-        $pusher = Pusher::make($payload, $server);
-        $pusher->push($this->parser->encode($pusher->getEvent(), $pusher->getMessage()));
+        $this->websocket->reset(true)->setSender($frame->fd);
+        if ($this->websocket->eventExists($event)) {
+            $this->websocket->call($event, $data);
+        } else {
+            // 兜底处理，一般不会执行到这里
+            return;
+        }
     }
 
     // 连接关闭时触发
     public function onClose(Server $server, $fd, $reactorId)
     {
         Log::info('WebSocket 连接关闭:' . $fd);
+        $this->websocket->setSender($fd);
+        if ($this->websocket->eventExists('disconnect')) {
+            $this->websocket->call('disconnect', '连接关闭');
+        }
     }
 }

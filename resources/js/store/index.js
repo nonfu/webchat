@@ -19,7 +19,8 @@ const store = new Vuex.Store({
     state: {
         userInfo: {
             src: getItem('src'),
-            userid: getItem('userid')
+            userid: getItem('userid'),
+            token: getItem('token')
         },
         isDiscount: false,
         isLogin: false,

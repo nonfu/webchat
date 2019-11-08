@@ -42,9 +42,11 @@ socket.on('connect', async () => {
     console.log('websocket connected: ' + socket.connected);
     const roomId = queryString(window.location.href, 'roomId');
     const userId = store.state.userInfo.userid;
+    const token = store.state.userInfo.token;
     if (userId) {
         socket.emit('login', {
-            name: userId
+            name: userId,
+            token: token
         });
     }
     if (roomId) {
