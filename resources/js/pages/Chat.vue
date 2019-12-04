@@ -12,11 +12,15 @@
       </mu-dialog>
       <div class="title">
         <mu-appbar title="Title">
-          <mu-icon-button icon="chevron_left" slot="left" @click="goback"/>
+            <mu-button icon slot="left" @click="goback">
+                <mu-icon value="chevron_left"></mu-icon>
+            </mu-button>
           <div class="center">
             聊天({{Object.keys(getUsers).length}})
           </div>
-          <mu-icon-button icon="people" slot="right" @click="openSimpleDialog"/>
+            <mu-button icon slot="right" @click="openSimpleDialog">
+                <mu-icon value="people"></mu-icon>
+            </mu-button>
         </mu-appbar>
       </div>
       <!-- <div class="notice" v-if="noticeList.length > 0" :class="[noticeBar ? 'notice-hidden' : '']">
@@ -99,7 +103,7 @@
           <div class="input" @keyup.enter="submess">
             <input type="text" v-model="chatValue">
           </div>
-          <mu-raised-button label="发送" class="demo-raised-button" primary @click="submess"/>
+          <mu-button class="demo-raised-button" primary @click="submess">发送</mu-button>
         </div>
         <input id="inputFile" name='inputFile' type='file' multiple='mutiple' accept="image/*;capture=camera"
                 style="display: none" @change="fileup">

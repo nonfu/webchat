@@ -1475,7 +1475,7 @@ module.exports = function spread(callback) {
 
 
 var bind = __webpack_require__(/*! ./helpers/bind */ "./node_modules/axios/lib/helpers/bind.js");
-var isBuffer = __webpack_require__(/*! is-buffer */ "./node_modules/axios/node_modules/is-buffer/index.js");
+var isBuffer = __webpack_require__(/*! is-buffer */ "./node_modules/is-buffer/index.js");
 
 /*global toString:true*/
 
@@ -1775,28 +1775,6 @@ module.exports = {
   extend: extend,
   trim: trim
 };
-
-
-/***/ }),
-
-/***/ "./node_modules/axios/node_modules/is-buffer/index.js":
-/*!************************************************************!*\
-  !*** ./node_modules/axios/node_modules/is-buffer/index.js ***!
-  \************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/*!
- * Determine if an object is a Buffer
- *
- * @author   Feross Aboukhadijeh <https://feross.org>
- * @license  MIT
- */
-
-module.exports = function isBuffer (obj) {
-  return obj != null && obj.constructor != null &&
-    typeof obj.constructor.isBuffer === 'function' && obj.constructor.isBuffer(obj)
-}
 
 
 /***/ }),
@@ -2495,6 +2473,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -2901,6 +2883,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -3027,6 +3021,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     value: ""
                   });
                   this.$store.commit("setUserInfo", {
+                    type: "token",
+                    value: ""
+                  });
+                  this.$store.commit("setUserInfo", {
                     type: "src",
                     value: ""
                   });
@@ -3054,13 +3052,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }(),
     handleGithub: function handleGithub() {
       Object(_components_Alert__WEBPACK_IMPORTED_MODULE_4__["default"])({
-        content: "https://github.com/hua1995116/webchat"
+        content: "https://github.com/nonfu/webchat"
       });
     },
     handleTips: function handleTips() {
       Object(_components_Alert__WEBPACK_IMPORTED_MODULE_4__["default"])({
-        title: "请我喝杯奶茶",
-        html: '<div><img style="width: 200px" src="//s3.qiufengh.com/money/WechatIMG64.jpeg" /></div>'
+        title: "请我喝杯咖啡",
+        html: '<div>' + '<img style="width: 200px;" src="https://xueyuanjun.com/wp-content/uploads/2019/05/e7156cfe0196dd7d7ea4f8f5f10b8d1a.jpeg" />' + '</div>'
       });
     }
   },
@@ -3103,6 +3101,21 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -3319,7 +3332,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      loading: ""
+      loading: "",
+      username: "",
+      password: ""
     };
   },
   methods: {
@@ -3332,8 +3347,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                name = document.form2.username.value.trim();
-                password = document.form2.password.value.trim();
+                name = this.username.trim();
+                password = this.password.trim();
 
                 if (!(name !== "" && password !== "")) {
                   _context.next = 11;
@@ -3352,17 +3367,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                 if (res.status === "success") {
                   Object(_components_Toast__WEBPACK_IMPORTED_MODULE_3__["default"])({
-                    content: res.data.data,
+                    content: res.data.message,
                     timeout: 1000,
                     background: "#2196f3"
                   });
                   this.$store.commit("setUserInfo", {
                     type: "userid",
-                    value: res.data.name
+                    value: res.data.user.email
+                  });
+                  this.$store.commit("setUserInfo", {
+                    type: "token",
+                    value: res.data.user.api_token
                   });
                   this.$store.commit("setUserInfo", {
                     type: "src",
-                    value: res.data.src
+                    value: res.data.user.avatar
                   });
                   this.getSvgModal.$root.$options.clear();
                   this.$store.commit("setSvgModal", null);
@@ -3374,7 +3393,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   });
                 } else {
                   Object(_components_Alert__WEBPACK_IMPORTED_MODULE_2__["default"])({
-                    content: res.data.data
+                    content: res.data.message
                   });
                 }
 
@@ -3482,6 +3501,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      username: "",
+      password: ""
+    };
+  },
   methods: {
     submit: function () {
       var _submit = _asyncToGenerator(
@@ -3492,12 +3517,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                name = document.form1.username.value.trim();
-                password = document.form1.password.value.trim();
+                name = this.username.trim();
+                password = this.password.trim();
                 src = "//s3.qiufengh.com/avatar/".concat(Math.ceil(Math.random() * 272), ".jpeg");
 
                 if (!(name !== "" && password !== "")) {
-                  _context.next = 22;
+                  _context.next = 23;
                   break;
                 }
 
@@ -3513,22 +3538,26 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 res = _context.sent;
 
                 if (!(res.status === "success")) {
-                  _context.next = 18;
+                  _context.next = 19;
                   break;
                 }
 
                 Object(_components_Toast__WEBPACK_IMPORTED_MODULE_4__["default"])({
-                  content: res.data.data,
+                  content: res.data.message,
                   timeout: 1000,
                   background: "#2196f3"
                 });
                 this.$store.commit("setUserInfo", {
                   type: "userid",
-                  value: data.name
+                  value: res.data.user.email
+                });
+                this.$store.commit("setUserInfo", {
+                  type: "token",
+                  value: res.data.user.api_token
                 });
                 this.$store.commit("setUserInfo", {
                   type: "src",
-                  value: data.src
+                  value: res.data.user.avatar
                 });
                 this.getSvgModal.$root.$options.clear();
                 this.$store.commit("setSvgModal", null);
@@ -3538,25 +3567,25 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _socket__WEBPACK_IMPORTED_MODULE_6__["default"].emit("login", {
                   name: name
                 });
-                _context.next = 20;
+                _context.next = 21;
                 break;
 
-              case 18:
-                _context.next = 20;
+              case 19:
+                _context.next = 21;
                 return Object(_components_Alert__WEBPACK_IMPORTED_MODULE_3__["default"])({
-                  content: res.data.data
+                  content: res.data.message
                 });
 
-              case 20:
-                _context.next = 23;
+              case 21:
+                _context.next = 24;
                 break;
 
-              case 22:
+              case 23:
                 Object(_components_Alert__WEBPACK_IMPORTED_MODULE_3__["default"])({
                   content: "账号密码不能为空"
                 });
 
-              case 23:
+              case 24:
               case "end":
                 return _context.stop();
             }
@@ -3614,6 +3643,10 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
 //
 //
 //
@@ -5988,180 +6021,6 @@ module.exports = function(obj, fn){
 
 /***/ }),
 
-/***/ "./node_modules/component-emitter/index.js":
-/*!*************************************************!*\
-  !*** ./node_modules/component-emitter/index.js ***!
-  \*************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-
-/**
- * Expose `Emitter`.
- */
-
-if (true) {
-  module.exports = Emitter;
-}
-
-/**
- * Initialize a new `Emitter`.
- *
- * @api public
- */
-
-function Emitter(obj) {
-  if (obj) return mixin(obj);
-};
-
-/**
- * Mixin the emitter properties.
- *
- * @param {Object} obj
- * @return {Object}
- * @api private
- */
-
-function mixin(obj) {
-  for (var key in Emitter.prototype) {
-    obj[key] = Emitter.prototype[key];
-  }
-  return obj;
-}
-
-/**
- * Listen on the given `event` with `fn`.
- *
- * @param {String} event
- * @param {Function} fn
- * @return {Emitter}
- * @api public
- */
-
-Emitter.prototype.on =
-Emitter.prototype.addEventListener = function(event, fn){
-  this._callbacks = this._callbacks || {};
-  (this._callbacks['$' + event] = this._callbacks['$' + event] || [])
-    .push(fn);
-  return this;
-};
-
-/**
- * Adds an `event` listener that will be invoked a single
- * time then automatically removed.
- *
- * @param {String} event
- * @param {Function} fn
- * @return {Emitter}
- * @api public
- */
-
-Emitter.prototype.once = function(event, fn){
-  function on() {
-    this.off(event, on);
-    fn.apply(this, arguments);
-  }
-
-  on.fn = fn;
-  this.on(event, on);
-  return this;
-};
-
-/**
- * Remove the given callback for `event` or all
- * registered callbacks.
- *
- * @param {String} event
- * @param {Function} fn
- * @return {Emitter}
- * @api public
- */
-
-Emitter.prototype.off =
-Emitter.prototype.removeListener =
-Emitter.prototype.removeAllListeners =
-Emitter.prototype.removeEventListener = function(event, fn){
-  this._callbacks = this._callbacks || {};
-
-  // all
-  if (0 == arguments.length) {
-    this._callbacks = {};
-    return this;
-  }
-
-  // specific event
-  var callbacks = this._callbacks['$' + event];
-  if (!callbacks) return this;
-
-  // remove all handlers
-  if (1 == arguments.length) {
-    delete this._callbacks['$' + event];
-    return this;
-  }
-
-  // remove specific handler
-  var cb;
-  for (var i = 0; i < callbacks.length; i++) {
-    cb = callbacks[i];
-    if (cb === fn || cb.fn === fn) {
-      callbacks.splice(i, 1);
-      break;
-    }
-  }
-  return this;
-};
-
-/**
- * Emit `event` with the given args.
- *
- * @param {String} event
- * @param {Mixed} ...
- * @return {Emitter}
- */
-
-Emitter.prototype.emit = function(event){
-  this._callbacks = this._callbacks || {};
-  var args = [].slice.call(arguments, 1)
-    , callbacks = this._callbacks['$' + event];
-
-  if (callbacks) {
-    callbacks = callbacks.slice(0);
-    for (var i = 0, len = callbacks.length; i < len; ++i) {
-      callbacks[i].apply(this, args);
-    }
-  }
-
-  return this;
-};
-
-/**
- * Return array of callbacks for `event`.
- *
- * @param {String} event
- * @return {Array}
- * @api public
- */
-
-Emitter.prototype.listeners = function(event){
-  this._callbacks = this._callbacks || {};
-  return this._callbacks['$' + event] || [];
-};
-
-/**
- * Check if this emitter has `event` handlers.
- *
- * @param {String} event
- * @return {Boolean}
- * @api public
- */
-
-Emitter.prototype.hasListeners = function(event){
-  return !! this.listeners(event).length;
-};
-
-
-/***/ }),
-
 /***/ "./node_modules/component-inherit/index.js":
 /*!*************************************************!*\
   !*** ./node_modules/component-inherit/index.js ***!
@@ -6589,6 +6448,449 @@ function toComment(sourceMap) {
 
 /***/ }),
 
+/***/ "./node_modules/debug/src/browser.js":
+/*!*******************************************!*\
+  !*** ./node_modules/debug/src/browser.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(process) {/**
+ * This is the web browser implementation of `debug()`.
+ *
+ * Expose `debug()` as the module.
+ */
+
+exports = module.exports = __webpack_require__(/*! ./debug */ "./node_modules/debug/src/debug.js");
+exports.log = log;
+exports.formatArgs = formatArgs;
+exports.save = save;
+exports.load = load;
+exports.useColors = useColors;
+exports.storage = 'undefined' != typeof chrome
+               && 'undefined' != typeof chrome.storage
+                  ? chrome.storage.local
+                  : localstorage();
+
+/**
+ * Colors.
+ */
+
+exports.colors = [
+  '#0000CC', '#0000FF', '#0033CC', '#0033FF', '#0066CC', '#0066FF', '#0099CC',
+  '#0099FF', '#00CC00', '#00CC33', '#00CC66', '#00CC99', '#00CCCC', '#00CCFF',
+  '#3300CC', '#3300FF', '#3333CC', '#3333FF', '#3366CC', '#3366FF', '#3399CC',
+  '#3399FF', '#33CC00', '#33CC33', '#33CC66', '#33CC99', '#33CCCC', '#33CCFF',
+  '#6600CC', '#6600FF', '#6633CC', '#6633FF', '#66CC00', '#66CC33', '#9900CC',
+  '#9900FF', '#9933CC', '#9933FF', '#99CC00', '#99CC33', '#CC0000', '#CC0033',
+  '#CC0066', '#CC0099', '#CC00CC', '#CC00FF', '#CC3300', '#CC3333', '#CC3366',
+  '#CC3399', '#CC33CC', '#CC33FF', '#CC6600', '#CC6633', '#CC9900', '#CC9933',
+  '#CCCC00', '#CCCC33', '#FF0000', '#FF0033', '#FF0066', '#FF0099', '#FF00CC',
+  '#FF00FF', '#FF3300', '#FF3333', '#FF3366', '#FF3399', '#FF33CC', '#FF33FF',
+  '#FF6600', '#FF6633', '#FF9900', '#FF9933', '#FFCC00', '#FFCC33'
+];
+
+/**
+ * Currently only WebKit-based Web Inspectors, Firefox >= v31,
+ * and the Firebug extension (any Firefox version) are known
+ * to support "%c" CSS customizations.
+ *
+ * TODO: add a `localStorage` variable to explicitly enable/disable colors
+ */
+
+function useColors() {
+  // NB: In an Electron preload script, document will be defined but not fully
+  // initialized. Since we know we're in Chrome, we'll just detect this case
+  // explicitly
+  if (typeof window !== 'undefined' && window.process && window.process.type === 'renderer') {
+    return true;
+  }
+
+  // Internet Explorer and Edge do not support colors.
+  if (typeof navigator !== 'undefined' && navigator.userAgent && navigator.userAgent.toLowerCase().match(/(edge|trident)\/(\d+)/)) {
+    return false;
+  }
+
+  // is webkit? http://stackoverflow.com/a/16459606/376773
+  // document is undefined in react-native: https://github.com/facebook/react-native/pull/1632
+  return (typeof document !== 'undefined' && document.documentElement && document.documentElement.style && document.documentElement.style.WebkitAppearance) ||
+    // is firebug? http://stackoverflow.com/a/398120/376773
+    (typeof window !== 'undefined' && window.console && (window.console.firebug || (window.console.exception && window.console.table))) ||
+    // is firefox >= v31?
+    // https://developer.mozilla.org/en-US/docs/Tools/Web_Console#Styling_messages
+    (typeof navigator !== 'undefined' && navigator.userAgent && navigator.userAgent.toLowerCase().match(/firefox\/(\d+)/) && parseInt(RegExp.$1, 10) >= 31) ||
+    // double check webkit in userAgent just in case we are in a worker
+    (typeof navigator !== 'undefined' && navigator.userAgent && navigator.userAgent.toLowerCase().match(/applewebkit\/(\d+)/));
+}
+
+/**
+ * Map %j to `JSON.stringify()`, since no Web Inspectors do that by default.
+ */
+
+exports.formatters.j = function(v) {
+  try {
+    return JSON.stringify(v);
+  } catch (err) {
+    return '[UnexpectedJSONParseError]: ' + err.message;
+  }
+};
+
+
+/**
+ * Colorize log arguments if enabled.
+ *
+ * @api public
+ */
+
+function formatArgs(args) {
+  var useColors = this.useColors;
+
+  args[0] = (useColors ? '%c' : '')
+    + this.namespace
+    + (useColors ? ' %c' : ' ')
+    + args[0]
+    + (useColors ? '%c ' : ' ')
+    + '+' + exports.humanize(this.diff);
+
+  if (!useColors) return;
+
+  var c = 'color: ' + this.color;
+  args.splice(1, 0, c, 'color: inherit')
+
+  // the final "%c" is somewhat tricky, because there could be other
+  // arguments passed either before or after the %c, so we need to
+  // figure out the correct index to insert the CSS into
+  var index = 0;
+  var lastC = 0;
+  args[0].replace(/%[a-zA-Z%]/g, function(match) {
+    if ('%%' === match) return;
+    index++;
+    if ('%c' === match) {
+      // we only are interested in the *last* %c
+      // (the user may have provided their own)
+      lastC = index;
+    }
+  });
+
+  args.splice(lastC, 0, c);
+}
+
+/**
+ * Invokes `console.log()` when available.
+ * No-op when `console.log` is not a "function".
+ *
+ * @api public
+ */
+
+function log() {
+  // this hackery is required for IE8/9, where
+  // the `console.log` function doesn't have 'apply'
+  return 'object' === typeof console
+    && console.log
+    && Function.prototype.apply.call(console.log, console, arguments);
+}
+
+/**
+ * Save `namespaces`.
+ *
+ * @param {String} namespaces
+ * @api private
+ */
+
+function save(namespaces) {
+  try {
+    if (null == namespaces) {
+      exports.storage.removeItem('debug');
+    } else {
+      exports.storage.debug = namespaces;
+    }
+  } catch(e) {}
+}
+
+/**
+ * Load `namespaces`.
+ *
+ * @return {String} returns the previously persisted debug modes
+ * @api private
+ */
+
+function load() {
+  var r;
+  try {
+    r = exports.storage.debug;
+  } catch(e) {}
+
+  // If debug isn't set in LS, and we're in Electron, try to load $DEBUG
+  if (!r && typeof process !== 'undefined' && 'env' in process) {
+    r = process.env.DEBUG;
+  }
+
+  return r;
+}
+
+/**
+ * Enable namespaces listed in `localStorage.debug` initially.
+ */
+
+exports.enable(load());
+
+/**
+ * Localstorage attempts to return the localstorage.
+ *
+ * This is necessary because safari throws
+ * when a user disables cookies/localstorage
+ * and you attempt to access it.
+ *
+ * @return {LocalStorage}
+ * @api private
+ */
+
+function localstorage() {
+  try {
+    return window.localStorage;
+  } catch (e) {}
+}
+
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../process/browser.js */ "./node_modules/process/browser.js")))
+
+/***/ }),
+
+/***/ "./node_modules/debug/src/debug.js":
+/*!*****************************************!*\
+  !*** ./node_modules/debug/src/debug.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+/**
+ * This is the common logic for both the Node.js and web browser
+ * implementations of `debug()`.
+ *
+ * Expose `debug()` as the module.
+ */
+
+exports = module.exports = createDebug.debug = createDebug['default'] = createDebug;
+exports.coerce = coerce;
+exports.disable = disable;
+exports.enable = enable;
+exports.enabled = enabled;
+exports.humanize = __webpack_require__(/*! ms */ "./node_modules/ms/index.js");
+
+/**
+ * Active `debug` instances.
+ */
+exports.instances = [];
+
+/**
+ * The currently active debug mode names, and names to skip.
+ */
+
+exports.names = [];
+exports.skips = [];
+
+/**
+ * Map of special "%n" handling functions, for the debug "format" argument.
+ *
+ * Valid key names are a single, lower or upper-case letter, i.e. "n" and "N".
+ */
+
+exports.formatters = {};
+
+/**
+ * Select a color.
+ * @param {String} namespace
+ * @return {Number}
+ * @api private
+ */
+
+function selectColor(namespace) {
+  var hash = 0, i;
+
+  for (i in namespace) {
+    hash  = ((hash << 5) - hash) + namespace.charCodeAt(i);
+    hash |= 0; // Convert to 32bit integer
+  }
+
+  return exports.colors[Math.abs(hash) % exports.colors.length];
+}
+
+/**
+ * Create a debugger with the given `namespace`.
+ *
+ * @param {String} namespace
+ * @return {Function}
+ * @api public
+ */
+
+function createDebug(namespace) {
+
+  var prevTime;
+
+  function debug() {
+    // disabled?
+    if (!debug.enabled) return;
+
+    var self = debug;
+
+    // set `diff` timestamp
+    var curr = +new Date();
+    var ms = curr - (prevTime || curr);
+    self.diff = ms;
+    self.prev = prevTime;
+    self.curr = curr;
+    prevTime = curr;
+
+    // turn the `arguments` into a proper Array
+    var args = new Array(arguments.length);
+    for (var i = 0; i < args.length; i++) {
+      args[i] = arguments[i];
+    }
+
+    args[0] = exports.coerce(args[0]);
+
+    if ('string' !== typeof args[0]) {
+      // anything else let's inspect with %O
+      args.unshift('%O');
+    }
+
+    // apply any `formatters` transformations
+    var index = 0;
+    args[0] = args[0].replace(/%([a-zA-Z%])/g, function(match, format) {
+      // if we encounter an escaped % then don't increase the array index
+      if (match === '%%') return match;
+      index++;
+      var formatter = exports.formatters[format];
+      if ('function' === typeof formatter) {
+        var val = args[index];
+        match = formatter.call(self, val);
+
+        // now we need to remove `args[index]` since it's inlined in the `format`
+        args.splice(index, 1);
+        index--;
+      }
+      return match;
+    });
+
+    // apply env-specific formatting (colors, etc.)
+    exports.formatArgs.call(self, args);
+
+    var logFn = debug.log || exports.log || console.log.bind(console);
+    logFn.apply(self, args);
+  }
+
+  debug.namespace = namespace;
+  debug.enabled = exports.enabled(namespace);
+  debug.useColors = exports.useColors();
+  debug.color = selectColor(namespace);
+  debug.destroy = destroy;
+
+  // env-specific initialization logic for debug instances
+  if ('function' === typeof exports.init) {
+    exports.init(debug);
+  }
+
+  exports.instances.push(debug);
+
+  return debug;
+}
+
+function destroy () {
+  var index = exports.instances.indexOf(this);
+  if (index !== -1) {
+    exports.instances.splice(index, 1);
+    return true;
+  } else {
+    return false;
+  }
+}
+
+/**
+ * Enables a debug mode by namespaces. This can include modes
+ * separated by a colon and wildcards.
+ *
+ * @param {String} namespaces
+ * @api public
+ */
+
+function enable(namespaces) {
+  exports.save(namespaces);
+
+  exports.names = [];
+  exports.skips = [];
+
+  var i;
+  var split = (typeof namespaces === 'string' ? namespaces : '').split(/[\s,]+/);
+  var len = split.length;
+
+  for (i = 0; i < len; i++) {
+    if (!split[i]) continue; // ignore empty strings
+    namespaces = split[i].replace(/\*/g, '.*?');
+    if (namespaces[0] === '-') {
+      exports.skips.push(new RegExp('^' + namespaces.substr(1) + '$'));
+    } else {
+      exports.names.push(new RegExp('^' + namespaces + '$'));
+    }
+  }
+
+  for (i = 0; i < exports.instances.length; i++) {
+    var instance = exports.instances[i];
+    instance.enabled = exports.enabled(instance.namespace);
+  }
+}
+
+/**
+ * Disable debug output.
+ *
+ * @api public
+ */
+
+function disable() {
+  exports.enable('');
+}
+
+/**
+ * Returns true if the given mode name is enabled, false otherwise.
+ *
+ * @param {String} name
+ * @return {Boolean}
+ * @api public
+ */
+
+function enabled(name) {
+  if (name[name.length - 1] === '*') {
+    return true;
+  }
+  var i, len;
+  for (i = 0, len = exports.skips.length; i < len; i++) {
+    if (exports.skips[i].test(name)) {
+      return false;
+    }
+  }
+  for (i = 0, len = exports.names.length; i < len; i++) {
+    if (exports.names[i].test(name)) {
+      return true;
+    }
+  }
+  return false;
+}
+
+/**
+ * Coerce `val`.
+ *
+ * @param {Mixed} val
+ * @return {Mixed}
+ * @api private
+ */
+
+function coerce(val) {
+  if (val instanceof Error) return val.stack || val.message;
+  return val;
+}
+
+
+/***/ }),
+
 /***/ "./node_modules/engine.io-client/lib/index.js":
 /*!****************************************************!*\
   !*** ./node_modules/engine.io-client/lib/index.js ***!
@@ -6622,7 +6924,7 @@ module.exports.parser = __webpack_require__(/*! engine.io-parser */ "./node_modu
  */
 
 var transports = __webpack_require__(/*! ./transports/index */ "./node_modules/engine.io-client/lib/transports/index.js");
-var Emitter = __webpack_require__(/*! component-emitter */ "./node_modules/component-emitter/index.js");
+var Emitter = __webpack_require__(/*! component-emitter */ "./node_modules/engine.io-client/node_modules/component-emitter/index.js");
 var debug = __webpack_require__(/*! debug */ "./node_modules/engine.io-client/node_modules/debug/src/browser.js")('engine.io-client:socket');
 var index = __webpack_require__(/*! indexof */ "./node_modules/indexof/index.js");
 var parser = __webpack_require__(/*! engine.io-parser */ "./node_modules/engine.io-parser/lib/browser.js");
@@ -7381,7 +7683,7 @@ Socket.prototype.filterUpgrades = function (upgrades) {
  */
 
 var parser = __webpack_require__(/*! engine.io-parser */ "./node_modules/engine.io-parser/lib/browser.js");
-var Emitter = __webpack_require__(/*! component-emitter */ "./node_modules/component-emitter/index.js");
+var Emitter = __webpack_require__(/*! component-emitter */ "./node_modules/engine.io-client/node_modules/component-emitter/index.js");
 
 /**
  * Module exports.
@@ -7871,7 +8173,7 @@ JSONPPolling.prototype.doWrite = function (data, fn) {
 
 var XMLHttpRequest = __webpack_require__(/*! xmlhttprequest-ssl */ "./node_modules/engine.io-client/lib/xmlhttprequest.js");
 var Polling = __webpack_require__(/*! ./polling */ "./node_modules/engine.io-client/lib/transports/polling.js");
-var Emitter = __webpack_require__(/*! component-emitter */ "./node_modules/component-emitter/index.js");
+var Emitter = __webpack_require__(/*! component-emitter */ "./node_modules/engine.io-client/node_modules/component-emitter/index.js");
 var inherit = __webpack_require__(/*! component-inherit */ "./node_modules/component-inherit/index.js");
 var debug = __webpack_require__(/*! debug */ "./node_modules/engine.io-client/node_modules/debug/src/browser.js")('engine.io-client:polling-xhr');
 
@@ -8890,6 +9192,180 @@ module.exports = function (opts) {
       return new self[['Active'].concat('Object').join('X')]('Microsoft.XMLHTTP');
     } catch (e) { }
   }
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/engine.io-client/node_modules/component-emitter/index.js":
+/*!*******************************************************************************!*\
+  !*** ./node_modules/engine.io-client/node_modules/component-emitter/index.js ***!
+  \*******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+/**
+ * Expose `Emitter`.
+ */
+
+if (true) {
+  module.exports = Emitter;
+}
+
+/**
+ * Initialize a new `Emitter`.
+ *
+ * @api public
+ */
+
+function Emitter(obj) {
+  if (obj) return mixin(obj);
+};
+
+/**
+ * Mixin the emitter properties.
+ *
+ * @param {Object} obj
+ * @return {Object}
+ * @api private
+ */
+
+function mixin(obj) {
+  for (var key in Emitter.prototype) {
+    obj[key] = Emitter.prototype[key];
+  }
+  return obj;
+}
+
+/**
+ * Listen on the given `event` with `fn`.
+ *
+ * @param {String} event
+ * @param {Function} fn
+ * @return {Emitter}
+ * @api public
+ */
+
+Emitter.prototype.on =
+Emitter.prototype.addEventListener = function(event, fn){
+  this._callbacks = this._callbacks || {};
+  (this._callbacks['$' + event] = this._callbacks['$' + event] || [])
+    .push(fn);
+  return this;
+};
+
+/**
+ * Adds an `event` listener that will be invoked a single
+ * time then automatically removed.
+ *
+ * @param {String} event
+ * @param {Function} fn
+ * @return {Emitter}
+ * @api public
+ */
+
+Emitter.prototype.once = function(event, fn){
+  function on() {
+    this.off(event, on);
+    fn.apply(this, arguments);
+  }
+
+  on.fn = fn;
+  this.on(event, on);
+  return this;
+};
+
+/**
+ * Remove the given callback for `event` or all
+ * registered callbacks.
+ *
+ * @param {String} event
+ * @param {Function} fn
+ * @return {Emitter}
+ * @api public
+ */
+
+Emitter.prototype.off =
+Emitter.prototype.removeListener =
+Emitter.prototype.removeAllListeners =
+Emitter.prototype.removeEventListener = function(event, fn){
+  this._callbacks = this._callbacks || {};
+
+  // all
+  if (0 == arguments.length) {
+    this._callbacks = {};
+    return this;
+  }
+
+  // specific event
+  var callbacks = this._callbacks['$' + event];
+  if (!callbacks) return this;
+
+  // remove all handlers
+  if (1 == arguments.length) {
+    delete this._callbacks['$' + event];
+    return this;
+  }
+
+  // remove specific handler
+  var cb;
+  for (var i = 0; i < callbacks.length; i++) {
+    cb = callbacks[i];
+    if (cb === fn || cb.fn === fn) {
+      callbacks.splice(i, 1);
+      break;
+    }
+  }
+  return this;
+};
+
+/**
+ * Emit `event` with the given args.
+ *
+ * @param {String} event
+ * @param {Mixed} ...
+ * @return {Emitter}
+ */
+
+Emitter.prototype.emit = function(event){
+  this._callbacks = this._callbacks || {};
+  var args = [].slice.call(arguments, 1)
+    , callbacks = this._callbacks['$' + event];
+
+  if (callbacks) {
+    callbacks = callbacks.slice(0);
+    for (var i = 0, len = callbacks.length; i < len; ++i) {
+      callbacks[i].apply(this, args);
+    }
+  }
+
+  return this;
+};
+
+/**
+ * Return array of callbacks for `event`.
+ *
+ * @param {String} event
+ * @return {Array}
+ * @api public
+ */
+
+Emitter.prototype.listeners = function(event){
+  this._callbacks = this._callbacks || {};
+  return this._callbacks['$' + event] || [];
+};
+
+/**
+ * Check if this emitter has `event` handlers.
+ *
+ * @param {String} event
+ * @return {Boolean}
+ * @api public
+ */
+
+Emitter.prototype.hasListeners = function(event){
+  return !! this.listeners(event).length;
 };
 
 
@@ -10720,6 +11196,28 @@ module.exports = function(arr, obj){
   }
   return -1;
 };
+
+/***/ }),
+
+/***/ "./node_modules/is-buffer/index.js":
+/*!*****************************************!*\
+  !*** ./node_modules/is-buffer/index.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/*!
+ * Determine if an object is a Buffer
+ *
+ * @author   Feross Aboukhadijeh <https://feross.org>
+ * @license  MIT
+ */
+
+module.exports = function isBuffer (obj) {
+  return obj != null && obj.constructor != null &&
+    typeof obj.constructor.isBuffer === 'function' && obj.constructor.isBuffer(obj)
+}
+
 
 /***/ }),
 
@@ -26910,7 +27408,7 @@ exports.Socket = __webpack_require__(/*! ./socket */ "./node_modules/socket.io-c
 
 var eio = __webpack_require__(/*! engine.io-client */ "./node_modules/engine.io-client/lib/index.js");
 var Socket = __webpack_require__(/*! ./socket */ "./node_modules/socket.io-client/lib/socket.js");
-var Emitter = __webpack_require__(/*! component-emitter */ "./node_modules/component-emitter/index.js");
+var Emitter = __webpack_require__(/*! component-emitter */ "./node_modules/socket.io-client/node_modules/component-emitter/index.js");
 var parser = __webpack_require__(/*! socket.io-parser */ "./node_modules/socket.io-parser/index.js");
 var on = __webpack_require__(/*! ./on */ "./node_modules/socket.io-client/lib/on.js");
 var bind = __webpack_require__(/*! component-bind */ "./node_modules/component-bind/index.js");
@@ -27528,7 +28026,7 @@ function on (obj, ev, fn) {
  */
 
 var parser = __webpack_require__(/*! socket.io-parser */ "./node_modules/socket.io-parser/index.js");
-var Emitter = __webpack_require__(/*! component-emitter */ "./node_modules/component-emitter/index.js");
+var Emitter = __webpack_require__(/*! component-emitter */ "./node_modules/socket.io-client/node_modules/component-emitter/index.js");
 var toArray = __webpack_require__(/*! to-array */ "./node_modules/to-array/index.js");
 var on = __webpack_require__(/*! ./on */ "./node_modules/socket.io-client/lib/on.js");
 var bind = __webpack_require__(/*! component-bind */ "./node_modules/component-bind/index.js");
@@ -28046,6 +28544,180 @@ function url (uri, loc) {
 
   return obj;
 }
+
+
+/***/ }),
+
+/***/ "./node_modules/socket.io-client/node_modules/component-emitter/index.js":
+/*!*******************************************************************************!*\
+  !*** ./node_modules/socket.io-client/node_modules/component-emitter/index.js ***!
+  \*******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+/**
+ * Expose `Emitter`.
+ */
+
+if (true) {
+  module.exports = Emitter;
+}
+
+/**
+ * Initialize a new `Emitter`.
+ *
+ * @api public
+ */
+
+function Emitter(obj) {
+  if (obj) return mixin(obj);
+};
+
+/**
+ * Mixin the emitter properties.
+ *
+ * @param {Object} obj
+ * @return {Object}
+ * @api private
+ */
+
+function mixin(obj) {
+  for (var key in Emitter.prototype) {
+    obj[key] = Emitter.prototype[key];
+  }
+  return obj;
+}
+
+/**
+ * Listen on the given `event` with `fn`.
+ *
+ * @param {String} event
+ * @param {Function} fn
+ * @return {Emitter}
+ * @api public
+ */
+
+Emitter.prototype.on =
+Emitter.prototype.addEventListener = function(event, fn){
+  this._callbacks = this._callbacks || {};
+  (this._callbacks['$' + event] = this._callbacks['$' + event] || [])
+    .push(fn);
+  return this;
+};
+
+/**
+ * Adds an `event` listener that will be invoked a single
+ * time then automatically removed.
+ *
+ * @param {String} event
+ * @param {Function} fn
+ * @return {Emitter}
+ * @api public
+ */
+
+Emitter.prototype.once = function(event, fn){
+  function on() {
+    this.off(event, on);
+    fn.apply(this, arguments);
+  }
+
+  on.fn = fn;
+  this.on(event, on);
+  return this;
+};
+
+/**
+ * Remove the given callback for `event` or all
+ * registered callbacks.
+ *
+ * @param {String} event
+ * @param {Function} fn
+ * @return {Emitter}
+ * @api public
+ */
+
+Emitter.prototype.off =
+Emitter.prototype.removeListener =
+Emitter.prototype.removeAllListeners =
+Emitter.prototype.removeEventListener = function(event, fn){
+  this._callbacks = this._callbacks || {};
+
+  // all
+  if (0 == arguments.length) {
+    this._callbacks = {};
+    return this;
+  }
+
+  // specific event
+  var callbacks = this._callbacks['$' + event];
+  if (!callbacks) return this;
+
+  // remove all handlers
+  if (1 == arguments.length) {
+    delete this._callbacks['$' + event];
+    return this;
+  }
+
+  // remove specific handler
+  var cb;
+  for (var i = 0; i < callbacks.length; i++) {
+    cb = callbacks[i];
+    if (cb === fn || cb.fn === fn) {
+      callbacks.splice(i, 1);
+      break;
+    }
+  }
+  return this;
+};
+
+/**
+ * Emit `event` with the given args.
+ *
+ * @param {String} event
+ * @param {Mixed} ...
+ * @return {Emitter}
+ */
+
+Emitter.prototype.emit = function(event){
+  this._callbacks = this._callbacks || {};
+  var args = [].slice.call(arguments, 1)
+    , callbacks = this._callbacks['$' + event];
+
+  if (callbacks) {
+    callbacks = callbacks.slice(0);
+    for (var i = 0, len = callbacks.length; i < len; ++i) {
+      callbacks[i].apply(this, args);
+    }
+  }
+
+  return this;
+};
+
+/**
+ * Return array of callbacks for `event`.
+ *
+ * @param {String} event
+ * @return {Array}
+ * @api public
+ */
+
+Emitter.prototype.listeners = function(event){
+  this._callbacks = this._callbacks || {};
+  return this._callbacks['$' + event] || [];
+};
+
+/**
+ * Check if this emitter has `event` handlers.
+ *
+ * @param {String} event
+ * @return {Boolean}
+ * @api public
+ */
+
+Emitter.prototype.hasListeners = function(event){
+  return !! this.listeners(event).length;
+};
 
 
 /***/ }),
@@ -28940,8 +29612,8 @@ exports.removeBlobs = function(data, callback) {
  * Module dependencies.
  */
 
-var debug = __webpack_require__(/*! debug */ "./node_modules/socket.io-parser/node_modules/debug/src/browser.js")('socket.io-parser');
-var Emitter = __webpack_require__(/*! component-emitter */ "./node_modules/component-emitter/index.js");
+var debug = __webpack_require__(/*! debug */ "./node_modules/debug/src/browser.js")('socket.io-parser');
+var Emitter = __webpack_require__(/*! component-emitter */ "./node_modules/socket.io-parser/node_modules/component-emitter/index.js");
 var binary = __webpack_require__(/*! ./binary */ "./node_modules/socket.io-parser/binary.js");
 var isArray = __webpack_require__(/*! isarray */ "./node_modules/socket.io-parser/node_modules/isarray/index.js");
 var isBuf = __webpack_require__(/*! ./is-buffer */ "./node_modules/socket.io-parser/is-buffer.js");
@@ -29386,445 +30058,176 @@ function isBuf(obj) {
 
 /***/ }),
 
-/***/ "./node_modules/socket.io-parser/node_modules/debug/src/browser.js":
-/*!*************************************************************************!*\
-  !*** ./node_modules/socket.io-parser/node_modules/debug/src/browser.js ***!
-  \*************************************************************************/
+/***/ "./node_modules/socket.io-parser/node_modules/component-emitter/index.js":
+/*!*******************************************************************************!*\
+  !*** ./node_modules/socket.io-parser/node_modules/component-emitter/index.js ***!
+  \*******************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(process) {/**
- * This is the web browser implementation of `debug()`.
- *
- * Expose `debug()` as the module.
- */
-
-exports = module.exports = __webpack_require__(/*! ./debug */ "./node_modules/socket.io-parser/node_modules/debug/src/debug.js");
-exports.log = log;
-exports.formatArgs = formatArgs;
-exports.save = save;
-exports.load = load;
-exports.useColors = useColors;
-exports.storage = 'undefined' != typeof chrome
-               && 'undefined' != typeof chrome.storage
-                  ? chrome.storage.local
-                  : localstorage();
 
 /**
- * Colors.
+ * Expose `Emitter`.
  */
 
-exports.colors = [
-  '#0000CC', '#0000FF', '#0033CC', '#0033FF', '#0066CC', '#0066FF', '#0099CC',
-  '#0099FF', '#00CC00', '#00CC33', '#00CC66', '#00CC99', '#00CCCC', '#00CCFF',
-  '#3300CC', '#3300FF', '#3333CC', '#3333FF', '#3366CC', '#3366FF', '#3399CC',
-  '#3399FF', '#33CC00', '#33CC33', '#33CC66', '#33CC99', '#33CCCC', '#33CCFF',
-  '#6600CC', '#6600FF', '#6633CC', '#6633FF', '#66CC00', '#66CC33', '#9900CC',
-  '#9900FF', '#9933CC', '#9933FF', '#99CC00', '#99CC33', '#CC0000', '#CC0033',
-  '#CC0066', '#CC0099', '#CC00CC', '#CC00FF', '#CC3300', '#CC3333', '#CC3366',
-  '#CC3399', '#CC33CC', '#CC33FF', '#CC6600', '#CC6633', '#CC9900', '#CC9933',
-  '#CCCC00', '#CCCC33', '#FF0000', '#FF0033', '#FF0066', '#FF0099', '#FF00CC',
-  '#FF00FF', '#FF3300', '#FF3333', '#FF3366', '#FF3399', '#FF33CC', '#FF33FF',
-  '#FF6600', '#FF6633', '#FF9900', '#FF9933', '#FFCC00', '#FFCC33'
-];
-
-/**
- * Currently only WebKit-based Web Inspectors, Firefox >= v31,
- * and the Firebug extension (any Firefox version) are known
- * to support "%c" CSS customizations.
- *
- * TODO: add a `localStorage` variable to explicitly enable/disable colors
- */
-
-function useColors() {
-  // NB: In an Electron preload script, document will be defined but not fully
-  // initialized. Since we know we're in Chrome, we'll just detect this case
-  // explicitly
-  if (typeof window !== 'undefined' && window.process && window.process.type === 'renderer') {
-    return true;
-  }
-
-  // Internet Explorer and Edge do not support colors.
-  if (typeof navigator !== 'undefined' && navigator.userAgent && navigator.userAgent.toLowerCase().match(/(edge|trident)\/(\d+)/)) {
-    return false;
-  }
-
-  // is webkit? http://stackoverflow.com/a/16459606/376773
-  // document is undefined in react-native: https://github.com/facebook/react-native/pull/1632
-  return (typeof document !== 'undefined' && document.documentElement && document.documentElement.style && document.documentElement.style.WebkitAppearance) ||
-    // is firebug? http://stackoverflow.com/a/398120/376773
-    (typeof window !== 'undefined' && window.console && (window.console.firebug || (window.console.exception && window.console.table))) ||
-    // is firefox >= v31?
-    // https://developer.mozilla.org/en-US/docs/Tools/Web_Console#Styling_messages
-    (typeof navigator !== 'undefined' && navigator.userAgent && navigator.userAgent.toLowerCase().match(/firefox\/(\d+)/) && parseInt(RegExp.$1, 10) >= 31) ||
-    // double check webkit in userAgent just in case we are in a worker
-    (typeof navigator !== 'undefined' && navigator.userAgent && navigator.userAgent.toLowerCase().match(/applewebkit\/(\d+)/));
+if (true) {
+  module.exports = Emitter;
 }
 
 /**
- * Map %j to `JSON.stringify()`, since no Web Inspectors do that by default.
+ * Initialize a new `Emitter`.
+ *
+ * @api public
  */
 
-exports.formatters.j = function(v) {
-  try {
-    return JSON.stringify(v);
-  } catch (err) {
-    return '[UnexpectedJSONParseError]: ' + err.message;
-  }
+function Emitter(obj) {
+  if (obj) return mixin(obj);
 };
 
-
 /**
- * Colorize log arguments if enabled.
+ * Mixin the emitter properties.
  *
- * @api public
- */
-
-function formatArgs(args) {
-  var useColors = this.useColors;
-
-  args[0] = (useColors ? '%c' : '')
-    + this.namespace
-    + (useColors ? ' %c' : ' ')
-    + args[0]
-    + (useColors ? '%c ' : ' ')
-    + '+' + exports.humanize(this.diff);
-
-  if (!useColors) return;
-
-  var c = 'color: ' + this.color;
-  args.splice(1, 0, c, 'color: inherit')
-
-  // the final "%c" is somewhat tricky, because there could be other
-  // arguments passed either before or after the %c, so we need to
-  // figure out the correct index to insert the CSS into
-  var index = 0;
-  var lastC = 0;
-  args[0].replace(/%[a-zA-Z%]/g, function(match) {
-    if ('%%' === match) return;
-    index++;
-    if ('%c' === match) {
-      // we only are interested in the *last* %c
-      // (the user may have provided their own)
-      lastC = index;
-    }
-  });
-
-  args.splice(lastC, 0, c);
-}
-
-/**
- * Invokes `console.log()` when available.
- * No-op when `console.log` is not a "function".
- *
- * @api public
- */
-
-function log() {
-  // this hackery is required for IE8/9, where
-  // the `console.log` function doesn't have 'apply'
-  return 'object' === typeof console
-    && console.log
-    && Function.prototype.apply.call(console.log, console, arguments);
-}
-
-/**
- * Save `namespaces`.
- *
- * @param {String} namespaces
+ * @param {Object} obj
+ * @return {Object}
  * @api private
  */
 
-function save(namespaces) {
-  try {
-    if (null == namespaces) {
-      exports.storage.removeItem('debug');
-    } else {
-      exports.storage.debug = namespaces;
-    }
-  } catch(e) {}
-}
-
-/**
- * Load `namespaces`.
- *
- * @return {String} returns the previously persisted debug modes
- * @api private
- */
-
-function load() {
-  var r;
-  try {
-    r = exports.storage.debug;
-  } catch(e) {}
-
-  // If debug isn't set in LS, and we're in Electron, try to load $DEBUG
-  if (!r && typeof process !== 'undefined' && 'env' in process) {
-    r = process.env.DEBUG;
+function mixin(obj) {
+  for (var key in Emitter.prototype) {
+    obj[key] = Emitter.prototype[key];
   }
-
-  return r;
+  return obj;
 }
 
 /**
- * Enable namespaces listed in `localStorage.debug` initially.
- */
-
-exports.enable(load());
-
-/**
- * Localstorage attempts to return the localstorage.
+ * Listen on the given `event` with `fn`.
  *
- * This is necessary because safari throws
- * when a user disables cookies/localstorage
- * and you attempt to access it.
- *
- * @return {LocalStorage}
- * @api private
- */
-
-function localstorage() {
-  try {
-    return window.localStorage;
-  } catch (e) {}
-}
-
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../process/browser.js */ "./node_modules/process/browser.js")))
-
-/***/ }),
-
-/***/ "./node_modules/socket.io-parser/node_modules/debug/src/debug.js":
-/*!***********************************************************************!*\
-  !*** ./node_modules/socket.io-parser/node_modules/debug/src/debug.js ***!
-  \***********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-
-/**
- * This is the common logic for both the Node.js and web browser
- * implementations of `debug()`.
- *
- * Expose `debug()` as the module.
- */
-
-exports = module.exports = createDebug.debug = createDebug['default'] = createDebug;
-exports.coerce = coerce;
-exports.disable = disable;
-exports.enable = enable;
-exports.enabled = enabled;
-exports.humanize = __webpack_require__(/*! ms */ "./node_modules/ms/index.js");
-
-/**
- * Active `debug` instances.
- */
-exports.instances = [];
-
-/**
- * The currently active debug mode names, and names to skip.
- */
-
-exports.names = [];
-exports.skips = [];
-
-/**
- * Map of special "%n" handling functions, for the debug "format" argument.
- *
- * Valid key names are a single, lower or upper-case letter, i.e. "n" and "N".
- */
-
-exports.formatters = {};
-
-/**
- * Select a color.
- * @param {String} namespace
- * @return {Number}
- * @api private
- */
-
-function selectColor(namespace) {
-  var hash = 0, i;
-
-  for (i in namespace) {
-    hash  = ((hash << 5) - hash) + namespace.charCodeAt(i);
-    hash |= 0; // Convert to 32bit integer
-  }
-
-  return exports.colors[Math.abs(hash) % exports.colors.length];
-}
-
-/**
- * Create a debugger with the given `namespace`.
- *
- * @param {String} namespace
- * @return {Function}
+ * @param {String} event
+ * @param {Function} fn
+ * @return {Emitter}
  * @api public
  */
 
-function createDebug(namespace) {
-
-  var prevTime;
-
-  function debug() {
-    // disabled?
-    if (!debug.enabled) return;
-
-    var self = debug;
-
-    // set `diff` timestamp
-    var curr = +new Date();
-    var ms = curr - (prevTime || curr);
-    self.diff = ms;
-    self.prev = prevTime;
-    self.curr = curr;
-    prevTime = curr;
-
-    // turn the `arguments` into a proper Array
-    var args = new Array(arguments.length);
-    for (var i = 0; i < args.length; i++) {
-      args[i] = arguments[i];
-    }
-
-    args[0] = exports.coerce(args[0]);
-
-    if ('string' !== typeof args[0]) {
-      // anything else let's inspect with %O
-      args.unshift('%O');
-    }
-
-    // apply any `formatters` transformations
-    var index = 0;
-    args[0] = args[0].replace(/%([a-zA-Z%])/g, function(match, format) {
-      // if we encounter an escaped % then don't increase the array index
-      if (match === '%%') return match;
-      index++;
-      var formatter = exports.formatters[format];
-      if ('function' === typeof formatter) {
-        var val = args[index];
-        match = formatter.call(self, val);
-
-        // now we need to remove `args[index]` since it's inlined in the `format`
-        args.splice(index, 1);
-        index--;
-      }
-      return match;
-    });
-
-    // apply env-specific formatting (colors, etc.)
-    exports.formatArgs.call(self, args);
-
-    var logFn = debug.log || exports.log || console.log.bind(console);
-    logFn.apply(self, args);
-  }
-
-  debug.namespace = namespace;
-  debug.enabled = exports.enabled(namespace);
-  debug.useColors = exports.useColors();
-  debug.color = selectColor(namespace);
-  debug.destroy = destroy;
-
-  // env-specific initialization logic for debug instances
-  if ('function' === typeof exports.init) {
-    exports.init(debug);
-  }
-
-  exports.instances.push(debug);
-
-  return debug;
-}
-
-function destroy () {
-  var index = exports.instances.indexOf(this);
-  if (index !== -1) {
-    exports.instances.splice(index, 1);
-    return true;
-  } else {
-    return false;
-  }
-}
+Emitter.prototype.on =
+Emitter.prototype.addEventListener = function(event, fn){
+  this._callbacks = this._callbacks || {};
+  (this._callbacks['$' + event] = this._callbacks['$' + event] || [])
+    .push(fn);
+  return this;
+};
 
 /**
- * Enables a debug mode by namespaces. This can include modes
- * separated by a colon and wildcards.
+ * Adds an `event` listener that will be invoked a single
+ * time then automatically removed.
  *
- * @param {String} namespaces
+ * @param {String} event
+ * @param {Function} fn
+ * @return {Emitter}
  * @api public
  */
 
-function enable(namespaces) {
-  exports.save(namespaces);
-
-  exports.names = [];
-  exports.skips = [];
-
-  var i;
-  var split = (typeof namespaces === 'string' ? namespaces : '').split(/[\s,]+/);
-  var len = split.length;
-
-  for (i = 0; i < len; i++) {
-    if (!split[i]) continue; // ignore empty strings
-    namespaces = split[i].replace(/\*/g, '.*?');
-    if (namespaces[0] === '-') {
-      exports.skips.push(new RegExp('^' + namespaces.substr(1) + '$'));
-    } else {
-      exports.names.push(new RegExp('^' + namespaces + '$'));
-    }
+Emitter.prototype.once = function(event, fn){
+  function on() {
+    this.off(event, on);
+    fn.apply(this, arguments);
   }
 
-  for (i = 0; i < exports.instances.length; i++) {
-    var instance = exports.instances[i];
-    instance.enabled = exports.enabled(instance.namespace);
-  }
-}
+  on.fn = fn;
+  this.on(event, on);
+  return this;
+};
 
 /**
- * Disable debug output.
+ * Remove the given callback for `event` or all
+ * registered callbacks.
  *
+ * @param {String} event
+ * @param {Function} fn
+ * @return {Emitter}
  * @api public
  */
 
-function disable() {
-  exports.enable('');
-}
+Emitter.prototype.off =
+Emitter.prototype.removeListener =
+Emitter.prototype.removeAllListeners =
+Emitter.prototype.removeEventListener = function(event, fn){
+  this._callbacks = this._callbacks || {};
+
+  // all
+  if (0 == arguments.length) {
+    this._callbacks = {};
+    return this;
+  }
+
+  // specific event
+  var callbacks = this._callbacks['$' + event];
+  if (!callbacks) return this;
+
+  // remove all handlers
+  if (1 == arguments.length) {
+    delete this._callbacks['$' + event];
+    return this;
+  }
+
+  // remove specific handler
+  var cb;
+  for (var i = 0; i < callbacks.length; i++) {
+    cb = callbacks[i];
+    if (cb === fn || cb.fn === fn) {
+      callbacks.splice(i, 1);
+      break;
+    }
+  }
+  return this;
+};
 
 /**
- * Returns true if the given mode name is enabled, false otherwise.
+ * Emit `event` with the given args.
  *
- * @param {String} name
+ * @param {String} event
+ * @param {Mixed} ...
+ * @return {Emitter}
+ */
+
+Emitter.prototype.emit = function(event){
+  this._callbacks = this._callbacks || {};
+  var args = [].slice.call(arguments, 1)
+    , callbacks = this._callbacks['$' + event];
+
+  if (callbacks) {
+    callbacks = callbacks.slice(0);
+    for (var i = 0, len = callbacks.length; i < len; ++i) {
+      callbacks[i].apply(this, args);
+    }
+  }
+
+  return this;
+};
+
+/**
+ * Return array of callbacks for `event`.
+ *
+ * @param {String} event
+ * @return {Array}
+ * @api public
+ */
+
+Emitter.prototype.listeners = function(event){
+  this._callbacks = this._callbacks || {};
+  return this._callbacks['$' + event] || [];
+};
+
+/**
+ * Check if this emitter has `event` handlers.
+ *
+ * @param {String} event
  * @return {Boolean}
  * @api public
  */
 
-function enabled(name) {
-  if (name[name.length - 1] === '*') {
-    return true;
-  }
-  var i, len;
-  for (i = 0, len = exports.skips.length; i < len; i++) {
-    if (exports.skips[i].test(name)) {
-      return false;
-    }
-  }
-  for (i = 0, len = exports.names.length; i < len; i++) {
-    if (exports.names[i].test(name)) {
-      return true;
-    }
-  }
-  return false;
-}
-
-/**
- * Coerce `val`.
- *
- * @param {Mixed} val
- * @return {Mixed}
- * @api private
- */
-
-function coerce(val) {
-  if (val instanceof Error) return val.stack || val.message;
-  return val;
-}
+Emitter.prototype.hasListeners = function(event){
+  return !! this.listeners(event).length;
+};
 
 
 /***/ }),
@@ -32288,7 +32691,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { attrs: { id: "applayout" } },
+    { attrs: { id: "app" } },
     [
       _c("router-view"),
       _vm._v(" "),
@@ -32520,11 +32923,16 @@ var render = function() {
               "mu-appbar",
               { attrs: { title: "Title" } },
               [
-                _c("mu-icon-button", {
-                  attrs: { slot: "left", icon: "chevron_left" },
-                  on: { click: _vm.goback },
-                  slot: "left"
-                }),
+                _c(
+                  "mu-button",
+                  {
+                    attrs: { slot: "left", icon: "" },
+                    on: { click: _vm.goback },
+                    slot: "left"
+                  },
+                  [_c("mu-icon", { attrs: { value: "chevron_left" } })],
+                  1
+                ),
                 _vm._v(" "),
                 _c("div", { staticClass: "center" }, [
                   _vm._v(
@@ -32534,11 +32942,16 @@ var render = function() {
                   )
                 ]),
                 _vm._v(" "),
-                _c("mu-icon-button", {
-                  attrs: { slot: "right", icon: "people" },
-                  on: { click: _vm.openSimpleDialog },
-                  slot: "right"
-                })
+                _c(
+                  "mu-button",
+                  {
+                    attrs: { slot: "right", icon: "" },
+                    on: { click: _vm.openSimpleDialog },
+                    slot: "right"
+                  },
+                  [_c("mu-icon", { attrs: { value: "people" } })],
+                  1
+                )
               ],
               1
             )
@@ -32765,11 +33178,15 @@ var render = function() {
                 ]
               ),
               _vm._v(" "),
-              _c("mu-raised-button", {
-                staticClass: "demo-raised-button",
-                attrs: { label: "发送", primary: "" },
-                on: { click: _vm.submess }
-              })
+              _c(
+                "mu-button",
+                {
+                  staticClass: "demo-raised-button",
+                  attrs: { primary: "" },
+                  on: { click: _vm.submess }
+                },
+                [_vm._v("发送")]
+              )
             ],
             1
           ),
@@ -32846,51 +33263,80 @@ var render = function() {
           [
             _c(
               "mu-list-item",
-              { attrs: { title: "修改头像" }, on: { click: _vm.changeAvatar } },
+              { attrs: { button: "" }, on: { click: _vm.changeAvatar } },
               [
-                _c("mu-icon", {
-                  attrs: { slot: "left", value: "send" },
-                  slot: "left"
-                })
+                _c(
+                  "mu-list-item-action",
+                  [
+                    _c("mu-icon", {
+                      attrs: { slot: "left", value: "send" },
+                      slot: "left"
+                    })
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c("mu-list-item-title", [_vm._v("修改头像")])
               ],
               1
             ),
             _vm._v(" "),
             _c(
               "mu-list-item",
-              { attrs: { title: "赞助一下" }, on: { click: _vm.handleTips } },
+              { attrs: { button: "" }, on: { click: _vm.handleTips } },
               [
-                _c("mu-icon", {
-                  attrs: { slot: "left", value: "inbox" },
-                  slot: "left"
-                })
+                _c(
+                  "mu-list-item-action",
+                  [
+                    _c("mu-icon", {
+                      attrs: { slot: "left", value: "inbox" },
+                      slot: "left"
+                    })
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c("mu-list-item-title", [_vm._v("赞助一下")])
               ],
               1
             ),
             _vm._v(" "),
             _c(
               "mu-list-item",
-              {
-                attrs: { title: "github地址" },
-                on: { click: _vm.handleGithub }
-              },
+              { attrs: { button: "" }, on: { click: _vm.handleGithub } },
               [
-                _c("mu-icon", {
-                  attrs: { slot: "left", value: "grade" },
-                  slot: "left"
-                })
+                _c(
+                  "mu-list-item-action",
+                  [
+                    _c("mu-icon", {
+                      attrs: { slot: "left", value: "grade" },
+                      slot: "left"
+                    })
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c("mu-list-item-title", [_vm._v("Github地址")])
               ],
               1
             ),
             _vm._v(" "),
             _c(
               "mu-list-item",
-              { attrs: { title: "清除缓存" }, on: { click: _vm.rmLocalData } },
+              { attrs: { button: "" }, on: { click: _vm.rmLocalData } },
               [
-                _c("mu-icon", {
-                  attrs: { slot: "left", value: "drafts" },
-                  slot: "left"
-                })
+                _c(
+                  "mu-list-item-action",
+                  [
+                    _c("mu-icon", {
+                      attrs: { slot: "left", value: "drafts" },
+                      slot: "left"
+                    })
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c("mu-list-item-title", [_vm._v("清除缓存")])
               ],
               1
             )
@@ -32905,11 +33351,15 @@ var render = function() {
       "div",
       { staticClass: "logout" },
       [
-        _c("mu-raised-button", {
-          staticClass: "demo-raised-button",
-          attrs: { label: "退出", fullWidth: "" },
-          on: { click: _vm.logout }
-        })
+        _c(
+          "mu-button",
+          {
+            staticClass: "demo-raised-button",
+            attrs: { "full-width": "" },
+            on: { click: _vm.logout }
+          },
+          [_vm._v("退出")]
+        )
       ],
       1
     ),
@@ -32951,7 +33401,7 @@ var render = function() {
             _c(
               "mu-list-item",
               {
-                attrs: { title: "聊天室1" },
+                attrs: { avatar: "", button: "", ripple: false },
                 on: {
                   click: function($event) {
                     return _vm.chatwindow("room1")
@@ -32960,28 +33410,20 @@ var render = function() {
               },
               [
                 _c(
-                  "div",
-                  {
-                    staticClass: "avatar",
-                    attrs: { slot: "leftAvatar" },
-                    slot: "leftAvatar"
-                  },
+                  "mu-list-item-action",
                   [
-                    _vm.unRead1 !== 0
-                      ? _c("span", { staticClass: "tip" }, [
-                          _vm._v(_vm._s(_vm.unRead1 > 99 ? "99+" : _vm.unRead1))
-                        ])
-                      : _vm._e(),
-                    _vm._v(" "),
-                    _c("mu-avatar", { attrs: { src: _vm.house1 } })
+                    _c("mu-avatar", [_c("img", { attrs: { src: _vm.house1 } })])
                   ],
                   1
                 ),
                 _vm._v(" "),
-                _c("mu-icon", {
-                  attrs: { slot: "right", value: "chat_bubble" },
-                  slot: "right"
-                })
+                _c("mu-list-item-title", [_vm._v("聊天室1")]),
+                _vm._v(" "),
+                _c(
+                  "mu-list-item-action",
+                  [_c("mu-icon", { attrs: { value: "chat_bubble" } })],
+                  1
+                )
               ],
               1
             ),
@@ -32989,7 +33431,7 @@ var render = function() {
             _c(
               "mu-list-item",
               {
-                attrs: { title: "聊天室2" },
+                attrs: { avatar: "", button: "", ripple: false },
                 on: {
                   click: function($event) {
                     return _vm.chatwindow("room2")
@@ -32998,28 +33440,20 @@ var render = function() {
               },
               [
                 _c(
-                  "div",
-                  {
-                    staticClass: "avatar",
-                    attrs: { slot: "leftAvatar" },
-                    slot: "leftAvatar"
-                  },
+                  "mu-list-item-action",
                   [
-                    _vm.unRead2 !== 0
-                      ? _c("span", { staticClass: "tip" }, [
-                          _vm._v(_vm._s(_vm.unRead2 > 99 ? "99+" : _vm.unRead2))
-                        ])
-                      : _vm._e(),
-                    _vm._v(" "),
-                    _c("mu-avatar", { attrs: { src: _vm.house2 } })
+                    _c("mu-avatar", [_c("img", { attrs: { src: _vm.house2 } })])
                   ],
                   1
                 ),
                 _vm._v(" "),
-                _c("mu-icon", {
-                  attrs: { slot: "right", value: "chat_bubble" },
-                  slot: "right"
-                })
+                _c("mu-list-item-title", [_vm._v("聊天室2")]),
+                _vm._v(" "),
+                _c(
+                  "mu-list-item-action",
+                  [_c("mu-icon", { attrs: { value: "chat_bubble" } })],
+                  1
+                )
               ],
               1
             )
@@ -33037,7 +33471,7 @@ var render = function() {
             _c(
               "mu-list-item",
               {
-                attrs: { title: "客服大白(微信群，作者联系方式，找我)" },
+                attrs: { avatar: "", button: "", ripple: false },
                 on: {
                   click: function($event) {
                     return _vm.chatRobot()
@@ -33045,15 +33479,21 @@ var render = function() {
                 }
               },
               [
-                _c("mu-avatar", {
-                  attrs: { slot: "leftAvatar", src: _vm.robot },
-                  slot: "leftAvatar"
-                }),
+                _c(
+                  "mu-list-item-action",
+                  [_c("mu-avatar", [_c("img", { attrs: { src: _vm.robot } })])],
+                  1
+                ),
                 _vm._v(" "),
-                _c("mu-icon", {
-                  attrs: { slot: "right", value: "chat_bubble" },
-                  slot: "right"
-                })
+                _c("mu-list-item-title", [
+                  _vm._v("客服大白(微信群，作者联系方式，找我)")
+                ]),
+                _vm._v(" "),
+                _c(
+                  "mu-list-item-action",
+                  [_c("mu-icon", { attrs: { value: "chat_bubble" } })],
+                  1
+                )
               ],
               1
             )
@@ -33096,17 +33536,37 @@ var render = function() {
         { attrs: { action: "", name: "form2" } },
         [
           _c("mu-text-field", {
-            attrs: { label: "帐号", labelFloat: "", name: "username" }
+            attrs: {
+              label: "账号",
+              "label-float": "",
+              icon: "account_circle",
+              "full-width": ""
+            },
+            model: {
+              value: _vm.username,
+              callback: function($$v) {
+                _vm.username = $$v
+              },
+              expression: "username"
+            }
           }),
           _vm._v(" "),
           _c("br"),
           _vm._v(" "),
           _c("mu-text-field", {
             attrs: {
-              label: "密码",
               type: "password",
-              labelFloat: "",
-              name: "password"
+              label: "密码",
+              "label-float": "",
+              icon: "locked",
+              "full-width": ""
+            },
+            model: {
+              value: _vm.password,
+              callback: function($$v) {
+                _vm.password = $$v
+              },
+              expression: "password"
             }
           }),
           _vm._v(" "),
@@ -33156,17 +33616,37 @@ var render = function() {
         { attrs: { action: "", name: "form1" } },
         [
           _c("mu-text-field", {
-            attrs: { label: "帐号", labelFloat: "", name: "username" }
+            attrs: {
+              label: "账号",
+              "label-float": "",
+              icon: "account_circle",
+              "full-width": ""
+            },
+            model: {
+              value: _vm.username,
+              callback: function($$v) {
+                _vm.username = $$v
+              },
+              expression: "username"
+            }
           }),
           _vm._v(" "),
           _c("br"),
           _vm._v(" "),
           _c("mu-text-field", {
             attrs: {
-              label: "密码",
               type: "password",
-              labelFloat: "",
-              name: "password"
+              label: "密码",
+              "label-float": "",
+              icon: "locked",
+              "full-width": ""
+            },
+            model: {
+              value: _vm.password,
+              callback: function($$v) {
+                _vm.password = $$v
+              },
+              expression: "password"
             }
           }),
           _vm._v(" "),
@@ -33216,18 +33696,25 @@ var render = function() {
           "mu-appbar",
           { attrs: { title: "Title" } },
           [
-            _c("mu-icon-button", {
-              attrs: { slot: "left", icon: "chevron_left" },
-              on: { click: _vm.goback },
-              slot: "left"
-            }),
+            _c(
+              "mu-button",
+              {
+                attrs: { slot: "left", icon: "" },
+                on: { click: _vm.goback },
+                slot: "left"
+              },
+              [_c("mu-icon", { attrs: { value: "chevron_left" } })],
+              1
+            ),
             _vm._v(" "),
             _c("div", { staticClass: "center" }),
             _vm._v(" "),
-            _c("mu-icon-button", {
-              attrs: { slot: "right", icon: "expand_more" },
-              slot: "right"
-            })
+            _c(
+              "mu-button",
+              { attrs: { slot: "right", icon: "" }, slot: "right" },
+              [_c("mu-icon", { attrs: { value: "expand_more" } })],
+              1
+            )
           ],
           1
         )
@@ -33283,11 +33770,15 @@ var render = function() {
           [_c("input", { attrs: { type: "text", id: "msg" } })]
         ),
         _vm._v(" "),
-        _c("mu-raised-button", {
-          staticClass: "demo-raised-button",
-          attrs: { label: "发送", primary: "" },
-          on: { click: _vm.sendmessage }
-        })
+        _c(
+          "mu-button",
+          {
+            staticClass: "demo-raised-button",
+            attrs: { primary: "" },
+            on: { click: _vm.sendmessage }
+          },
+          [_vm._v("发送")]
+        )
       ],
       1
     )
@@ -33417,7 +33908,7 @@ function normalizeComponent (
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /*!
-  * vue-router v3.1.3
+  * vue-router v3.1.2
   * (c) 2019 Evan You
   * @license MIT
   */
@@ -33558,7 +34049,7 @@ var View = {
 
     return h(component, data, children)
   }
-};
+}
 
 function resolveProps (route, config) {
   switch (typeof config) {
@@ -33687,7 +34178,7 @@ function createRoute (
   redirectedFrom,
   router
 ) {
-  var stringifyQuery = router && router.options.stringifyQuery;
+  var stringifyQuery$$1 = router && router.options.stringifyQuery;
 
   var query = location.query || {};
   try {
@@ -33701,11 +34192,11 @@ function createRoute (
     hash: location.hash || '',
     query: query,
     params: location.params || {},
-    fullPath: getFullPath(location, stringifyQuery),
+    fullPath: getFullPath(location, stringifyQuery$$1),
     matched: record ? formatMatch(record) : []
   };
   if (redirectedFrom) {
-    route.redirectedFrom = getFullPath(redirectedFrom, stringifyQuery);
+    route.redirectedFrom = getFullPath(redirectedFrom, stringifyQuery$$1);
   }
   return Object.freeze(route)
 }
@@ -34532,24 +35023,7 @@ var Link = {
         // in case the <a> is a static node
         a.isStatic = false;
         var aData = (a.data = extend({}, a.data));
-        aData.on = aData.on || {};
-        // transform existing events in both objects into arrays so we can push later
-        for (var event in aData.on) {
-          var handler$1 = aData.on[event];
-          if (event in on) {
-            aData.on[event] = Array.isArray(handler$1) ? handler$1 : [handler$1];
-          }
-        }
-        // append new listeners for router-link
-        for (var event$1 in on) {
-          if (event$1 in aData.on) {
-            // on[event] is always a function
-            aData.on[event$1].push(on[event$1]);
-          } else {
-            aData.on[event$1] = handler;
-          }
-        }
-
+        aData.on = on;
         var aAttrs = (a.data.attrs = extend({}, a.data.attrs));
         aAttrs.href = href;
       } else {
@@ -34560,7 +35034,7 @@ var Link = {
 
     return h(this.tag, data, this.$slots.default)
   }
-};
+}
 
 function guardEvent (e) {
   // don't redirect with control keys
@@ -34675,18 +35149,6 @@ function createRouteMap (
       pathList.push(pathList.splice(i, 1)[0]);
       l--;
       i--;
-    }
-  }
-
-  if (true) {
-    // warn if routes do not include leading slashes
-    var found = pathList
-    // check for missing leading slash
-      .filter(function (path) { return path && path.charAt(0) !== '*' && path.charAt(0) !== '/'; });
-
-    if (found.length > 0) {
-      var pathNames = found.map(function (path) { return ("- " + path); }).join('\n');
-      warn(false, ("Non-nested routes must include a leading slash character. Fix the following routes: \n" + pathNames));
     }
   }
 
@@ -35045,28 +35507,6 @@ function resolveRecordPath (path, record) {
 
 /*  */
 
-// use User Timing api (if present) for more accurate key precision
-var Time =
-  inBrowser && window.performance && window.performance.now
-    ? window.performance
-    : Date;
-
-function genStateKey () {
-  return Time.now().toFixed(3)
-}
-
-var _key = genStateKey();
-
-function getStateKey () {
-  return _key
-}
-
-function setStateKey (key) {
-  return (_key = key)
-}
-
-/*  */
-
 var positionStore = Object.create(null);
 
 function setupScroll () {
@@ -35216,22 +35656,39 @@ function scrollToPosition (shouldScroll, position) {
 
 /*  */
 
-var supportsPushState =
-  inBrowser &&
-  (function () {
-    var ua = window.navigator.userAgent;
+var supportsPushState = inBrowser && (function () {
+  var ua = window.navigator.userAgent;
 
-    if (
-      (ua.indexOf('Android 2.') !== -1 || ua.indexOf('Android 4.0') !== -1) &&
-      ua.indexOf('Mobile Safari') !== -1 &&
-      ua.indexOf('Chrome') === -1 &&
-      ua.indexOf('Windows Phone') === -1
-    ) {
-      return false
-    }
+  if (
+    (ua.indexOf('Android 2.') !== -1 || ua.indexOf('Android 4.0') !== -1) &&
+    ua.indexOf('Mobile Safari') !== -1 &&
+    ua.indexOf('Chrome') === -1 &&
+    ua.indexOf('Windows Phone') === -1
+  ) {
+    return false
+  }
 
-    return window.history && 'pushState' in window.history
-  })();
+  return window.history && 'pushState' in window.history
+})();
+
+// use User Timing api (if present) for more accurate key precision
+var Time = inBrowser && window.performance && window.performance.now
+  ? window.performance
+  : Date;
+
+var _key = genKey();
+
+function genKey () {
+  return Time.now().toFixed(3)
+}
+
+function getStateKey () {
+  return _key
+}
+
+function setStateKey (key) {
+  _key = key;
+}
 
 function pushState (url, replace) {
   saveScrollPosition();
@@ -35240,9 +35697,10 @@ function pushState (url, replace) {
   var history = window.history;
   try {
     if (replace) {
-      history.replaceState({ key: getStateKey() }, '', url);
+      history.replaceState({ key: _key }, '', url);
     } else {
-      history.pushState({ key: setStateKey(genStateKey()) }, '', url);
+      _key = genKey();
+      history.pushState({ key: _key }, '', url);
     }
   } catch (e) {
     window.location[replace ? 'replace' : 'assign'](url);
@@ -35382,20 +35840,9 @@ function once (fn) {
 }
 
 var NavigationDuplicated = /*@__PURE__*/(function (Error) {
-  function NavigationDuplicated (normalizedLocation) {
-    Error.call(this);
+  function NavigationDuplicated () {
+    Error.call(this, 'Navigating to current location is not allowed');
     this.name = this._name = 'NavigationDuplicated';
-    // passing the message to super() doesn't seem to work in the transpiled version
-    this.message = "Navigating to current location (\"" + (normalizedLocation.fullPath) + "\") is not allowed";
-    // add a stack property so services like Sentry can correctly display it
-    Object.defineProperty(this, 'stack', {
-      value: new Error().stack,
-      writable: true,
-      configurable: true
-    });
-    // we could also have used
-    // Error.captureStackTrace(this, this.constructor)
-    // but it only exists on node and chrome
   }
 
   if ( Error ) NavigationDuplicated.__proto__ = Error;
@@ -35735,11 +36182,11 @@ function poll (
 
 /*  */
 
-var HTML5History = /*@__PURE__*/(function (History) {
+var HTML5History = /*@__PURE__*/(function (History$$1) {
   function HTML5History (router, base) {
     var this$1 = this;
 
-    History.call(this, router, base);
+    History$$1.call(this, router, base);
 
     var expectScroll = router.options.scrollBehavior;
     var supportsScroll = supportsPushState && expectScroll;
@@ -35767,8 +36214,8 @@ var HTML5History = /*@__PURE__*/(function (History) {
     });
   }
 
-  if ( History ) HTML5History.__proto__ = History;
-  HTML5History.prototype = Object.create( History && History.prototype );
+  if ( History$$1 ) HTML5History.__proto__ = History$$1;
+  HTML5History.prototype = Object.create( History$$1 && History$$1.prototype );
   HTML5History.prototype.constructor = HTML5History;
 
   HTML5History.prototype.go = function go (n) {
@@ -35823,9 +36270,9 @@ function getLocation (base) {
 
 /*  */
 
-var HashHistory = /*@__PURE__*/(function (History) {
+var HashHistory = /*@__PURE__*/(function (History$$1) {
   function HashHistory (router, base, fallback) {
-    History.call(this, router, base);
+    History$$1.call(this, router, base);
     // check history fallback deeplinking
     if (fallback && checkFallback(this.base)) {
       return
@@ -35833,8 +36280,8 @@ var HashHistory = /*@__PURE__*/(function (History) {
     ensureSlash();
   }
 
-  if ( History ) HashHistory.__proto__ = History;
-  HashHistory.prototype = Object.create( History && History.prototype );
+  if ( History$$1 ) HashHistory.__proto__ = History$$1;
+  HashHistory.prototype = Object.create( History$$1 && History$$1.prototype );
   HashHistory.prototype.constructor = HashHistory;
 
   // this is delayed until the app mounts
@@ -35988,15 +36435,15 @@ function replaceHash (path) {
 
 /*  */
 
-var AbstractHistory = /*@__PURE__*/(function (History) {
+var AbstractHistory = /*@__PURE__*/(function (History$$1) {
   function AbstractHistory (router, base) {
-    History.call(this, router, base);
+    History$$1.call(this, router, base);
     this.stack = [];
     this.index = -1;
   }
 
-  if ( History ) AbstractHistory.__proto__ = History;
-  AbstractHistory.prototype = Object.create( History && History.prototype );
+  if ( History$$1 ) AbstractHistory.__proto__ = History$$1;
+  AbstractHistory.prototype = Object.create( History$$1 && History$$1.prototype );
   AbstractHistory.prototype.constructor = AbstractHistory;
 
   AbstractHistory.prototype.push = function push (location, onComplete, onAbort) {
@@ -36291,7 +36738,7 @@ function createHref (base, fullPath, mode) {
 }
 
 VueRouter.install = install;
-VueRouter.version = '3.1.3';
+VueRouter.version = '3.1.2';
 
 if (inBrowser && window.Vue) {
   window.Vue.use(VueRouter);
@@ -50573,7 +51020,7 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 
-var baseURL = '/api/';
+var baseURL = '/api';
 var instance = axios__WEBPACK_IMPORTED_MODULE_1___default.a.create();
 instance.defaults.timeout = 30000; // 所有接口30s超时
 
@@ -50711,9 +51158,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _layout_App__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./layout/App */ "./resources/js/layout/App.vue");
 /* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./router */ "./resources/js/router/index.js");
 /* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./store */ "./resources/js/store/index.js");
-/* harmony import */ var muse_ui__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! muse-ui */ "./node_modules/muse-ui/dist/muse-ui.esm.js");
-/* harmony import */ var _socket__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./socket */ "./resources/js/socket.js");
-/* harmony import */ var _utils_queryString__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./utils/queryString */ "./resources/js/utils/queryString.js");
+/* harmony import */ var _socket__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./socket */ "./resources/js/socket.js");
+/* harmony import */ var _utils_queryString__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./utils/queryString */ "./resources/js/utils/queryString.js");
+/* harmony import */ var muse_ui__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! muse-ui */ "./node_modules/muse-ui/dist/muse-ui.esm.js");
 /* harmony import */ var _components_photo_viewer__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/photo-viewer */ "./resources/js/components/photo-viewer/index.js");
 
 
@@ -50727,16 +51174,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
  * building robust, powerful web applications using Vue and Laravel.
  */
 
+ //app layout
+
+ // router
+
+ // store
 
 
- // 使用museui组件
 
+ // muse-ui组件
 
-
-
+vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(muse_ui__WEBPACK_IMPORTED_MODULE_7__["default"]);
 
 vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(_components_photo_viewer__WEBPACK_IMPORTED_MODULE_8__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(muse_ui__WEBPACK_IMPORTED_MODULE_5__["default"]);
 vue__WEBPACK_IMPORTED_MODULE_1___default.a.config.productionTip = false;
 var Notification = window.Notification;
 
@@ -50761,28 +51211,30 @@ var popNotice = function popNotice(msgInfo) {
   }
 };
 
-_socket__WEBPACK_IMPORTED_MODULE_6__["default"].on('connect',
+_socket__WEBPACK_IMPORTED_MODULE_5__["default"].on('connect',
 /*#__PURE__*/
 _asyncToGenerator(
 /*#__PURE__*/
 _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-  var roomId, userId, obj;
+  var roomId, userId, token, obj;
   return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
     while (1) {
       switch (_context.prev = _context.next) {
         case 0:
-          console.log('connect');
-          roomId = Object(_utils_queryString__WEBPACK_IMPORTED_MODULE_7__["queryString"])(window.location.href, 'roomId');
+          console.log('websocket connected: ' + _socket__WEBPACK_IMPORTED_MODULE_5__["default"].connected);
+          roomId = Object(_utils_queryString__WEBPACK_IMPORTED_MODULE_6__["queryString"])(window.location.href, 'roomId');
           userId = _store__WEBPACK_IMPORTED_MODULE_4__["default"].state.userInfo.userid;
+          token = _store__WEBPACK_IMPORTED_MODULE_4__["default"].state.userInfo.token;
 
           if (userId) {
-            _socket__WEBPACK_IMPORTED_MODULE_6__["default"].emit('login', {
-              name: userId
+            _socket__WEBPACK_IMPORTED_MODULE_5__["default"].emit('login', {
+              name: userId,
+              token: token
             });
           }
 
           if (!roomId) {
-            _context.next = 18;
+            _context.next = 19;
             break;
           }
 
@@ -50791,47 +51243,47 @@ _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function 
             src: _store__WEBPACK_IMPORTED_MODULE_4__["default"].state.userInfo.src,
             roomid: roomId
           };
-          _socket__WEBPACK_IMPORTED_MODULE_6__["default"].emit('room', obj);
+          _socket__WEBPACK_IMPORTED_MODULE_5__["default"].emit('room', obj);
 
           if (!_store__WEBPACK_IMPORTED_MODULE_4__["default"].state.isDiscount) {
-            _context.next = 18;
+            _context.next = 19;
             break;
           }
 
-          _context.next = 10;
+          _context.next = 11;
           return _store__WEBPACK_IMPORTED_MODULE_4__["default"].commit('setRoomDetailInfos');
 
-        case 10:
-          _context.next = 12;
+        case 11:
+          _context.next = 13;
           return _store__WEBPACK_IMPORTED_MODULE_4__["default"].commit('setCurrent', 1);
 
-        case 12:
-          _context.next = 14;
+        case 13:
+          _context.next = 15;
           return _store__WEBPACK_IMPORTED_MODULE_4__["default"].commit('setDiscount', false);
 
-        case 14:
-          _context.next = 16;
+        case 15:
+          _context.next = 17;
           return _store__WEBPACK_IMPORTED_MODULE_4__["default"].commit('setTotal', 0);
 
-        case 16:
-          _context.next = 18;
+        case 17:
+          _context.next = 19;
           return _store__WEBPACK_IMPORTED_MODULE_4__["default"].dispatch('getAllMessHistory', {
             current: 1,
             roomid: roomId
           });
 
-        case 18:
+        case 19:
         case "end":
           return _context.stop();
       }
     }
   }, _callee);
 })));
-_socket__WEBPACK_IMPORTED_MODULE_6__["default"].on('disconnect', function () {
-  console.log('disconnect');
+_socket__WEBPACK_IMPORTED_MODULE_5__["default"].on('disconnect', function () {
+  console.log('websocket disconnected:' + _socket__WEBPACK_IMPORTED_MODULE_5__["default"].disconnected);
   _store__WEBPACK_IMPORTED_MODULE_4__["default"].commit('setDiscount', true);
 });
-_socket__WEBPACK_IMPORTED_MODULE_6__["default"].on('message', function (obj) {
+_socket__WEBPACK_IMPORTED_MODULE_5__["default"].on('message', function (obj) {
   _store__WEBPACK_IMPORTED_MODULE_4__["default"].commit('addRoomDetailInfos', [obj]);
   console.log(Notification.permission);
 
@@ -50860,13 +51312,14 @@ document.addEventListener('click', function (e) {
 /* eslint-disable no-new */
 
 new vue__WEBPACK_IMPORTED_MODULE_1___default.a({
+  el: '#app',
   router: _router__WEBPACK_IMPORTED_MODULE_3__["default"],
   store: _store__WEBPACK_IMPORTED_MODULE_4__["default"],
   template: '<App/>',
   components: {
     App: _layout_App__WEBPACK_IMPORTED_MODULE_2__["default"]
   }
-}).$mount('#app');
+});
 
 /***/ }),
 
@@ -52548,13 +53001,15 @@ router.afterEach(function (route) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* WEBPACK VAR INJECTION */(function(process) {/* harmony import */ var socket_io_client__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! socket.io-client */ "./node_modules/socket.io-client/lib/index.js");
+/* harmony import */ var socket_io_client__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! socket.io-client */ "./node_modules/socket.io-client/lib/index.js");
 /* harmony import */ var socket_io_client__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(socket_io_client__WEBPACK_IMPORTED_MODULE_0__);
 // 通过 Socket.io 客户端发起 WebSocket 请求
 
-var socket = socket_io_client__WEBPACK_IMPORTED_MODULE_0___default.a.connect(process.env.APP_URL + ':' + process.env.LARAVELS_LISTEN_PORT + '/ws/');
+var socket = socket_io_client__WEBPACK_IMPORTED_MODULE_0___default()('http://webchats.test', {
+  path: '/ws',
+  transports: ['websocket']
+});
 /* harmony default export */ __webpack_exports__["default"] = (socket);
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../node_modules/process/browser.js */ "./node_modules/process/browser.js")))
 
 /***/ }),
 
@@ -52602,7 +53057,8 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_2__["default"].Store({
   state: {
     userInfo: {
       src: Object(_utils_localStorage__WEBPACK_IMPORTED_MODULE_4__["getItem"])('src'),
-      userid: Object(_utils_localStorage__WEBPACK_IMPORTED_MODULE_4__["getItem"])('userid')
+      userid: Object(_utils_localStorage__WEBPACK_IMPORTED_MODULE_4__["getItem"])('userid'),
+      token: Object(_utils_localStorage__WEBPACK_IMPORTED_MODULE_4__["getItem"])('token')
     },
     isDiscount: false,
     isLogin: false,
@@ -52622,7 +53078,7 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_2__["default"].Store({
     }, {
       username: _const__WEBPACK_IMPORTED_MODULE_5__["ROBOT_NAME"],
       src: _const__WEBPACK_IMPORTED_MODULE_5__["ROBOT_URL"],
-      img: "https://s3.qiufengh.com/webchat/webcaht-my.jpeg"
+      img: "https://xueyuanjun.com/wp-content/uploads/2015/07/wx_yaojinbu-150x150.jpg"
     }, {
       username: _const__WEBPACK_IMPORTED_MODULE_5__["ROBOT_NAME"],
       src: _const__WEBPACK_IMPORTED_MODULE_5__["ROBOT_URL"],
@@ -52630,7 +53086,7 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_2__["default"].Store({
     }, {
       username: _const__WEBPACK_IMPORTED_MODULE_5__["ROBOT_NAME"],
       src: _const__WEBPACK_IMPORTED_MODULE_5__["ROBOT_URL"],
-      img: "https://s3.qiufengh.com/webchat/webchat-group.jpeg"
+      img: "https://xueyuanjun.com/wp-content/uploads/2019/06/94fe5973d09b0ad753082b6b1ba46f3d.jpeg"
     }, {
       username: _const__WEBPACK_IMPORTED_MODULE_5__["ROBOT_NAME"],
       src: _const__WEBPACK_IMPORTED_MODULE_5__["ROBOT_URL"],
@@ -53223,8 +53679,8 @@ function queryString(url, key) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/sunqiang/Docker/wwwroot/webchat/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/sunqiang/Docker/wwwroot/webchat/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/sunqiang/Development/php/laravel/webchat/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/sunqiang/Development/php/laravel/webchat/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ }),

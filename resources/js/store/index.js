@@ -41,7 +41,7 @@ const store = new Vuex.Store({
             {
                 username: ROBOT_NAME,
                 src: ROBOT_URL,
-                img: "https://s3.qiufengh.com/webchat/webcaht-my.jpeg"
+                img: "https://xueyuanjun.com/wp-content/uploads/2015/07/wx_yaojinbu-150x150.jpg"
             },
             {
                 username: ROBOT_NAME,
@@ -51,7 +51,7 @@ const store = new Vuex.Store({
             {
                 username: ROBOT_NAME,
                 src: ROBOT_URL,
-                img: "https://s3.qiufengh.com/webchat/webchat-group.jpeg"
+                img: "https://xueyuanjun.com/wp-content/uploads/2019/06/94fe5973d09b0ad753082b6b1ba46f3d.jpeg"
             },
             {
                 username: ROBOT_NAME,

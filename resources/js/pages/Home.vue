@@ -123,7 +123,7 @@ export default {
         title: "请我喝杯咖啡",
         html:
           '<div>' +
-            '<img style="width: 200px;" src="https://qcdn.xueyuanjun.com/wp-content/uploads/2019/05/e7156cfe0196dd7d7ea4f8f5f10b8d1a.jpeg" />' +
+            '<img style="width: 200px;" src="https://xueyuanjun.com/wp-content/uploads/2019/05/e7156cfe0196dd7d7ea4f8f5f10b8d1a.jpeg" />' +
             '</div>'
       });
     }
