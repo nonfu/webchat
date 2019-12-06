@@ -44,4 +44,9 @@ return [
         ],
     ],
 
+    'turingapi' => [
+        'url' => 'http://www.tuling123.com/openapi/api',
+        'key' => env('ROBOT_KEY')
+    ]
+
 ];

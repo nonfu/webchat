@@ -64,9 +64,11 @@
                     return;
                 }
                 const id = this.userid;
+                const api_token = this.auth_token;
                 const data = {
                     info,
-                    id
+                    id,
+                    api_token
                 };
                 this.$store.commit("setRobotMsg", {
                     msg: info,
@@ -81,7 +83,8 @@
             ...mapGetters(["getRobotMsg"]),
             ...mapState({
                 userid: state => state.userInfo.userid,
-                src: state => state.userInfo.src
+                src: state => state.userInfo.src,
+                auth_token: state => state.userInfo.token,
             })
         },
         components: {

@@ -3708,9 +3708,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
 
       var id = this.userid;
+      var api_token = this.auth_token;
       var data = {
         info: info,
-        id: id
+        id: id,
+        api_token: api_token
       };
       this.$store.commit("setRobotMsg", {
         msg: info,
@@ -3727,6 +3729,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     src: function src(state) {
       return state.userInfo.src;
+    },
+    auth_token: function auth_token(state) {
+      return state.userInfo.token;
     }
   })),
   components: {

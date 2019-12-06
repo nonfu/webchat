@@ -13,9 +13,21 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware('auth:api')->group(function () {
+    Route::get('/user', function (Request $request) {
+        return $request->user();
+    });
+    Route::get('/robot', function (Request $request) {
+        $info = $request->get('info');
+        $userid = $request->get('id');
+        $key = config('services.robot.key');
+        $url = config('services.robot.api');
+        $client = new \GuzzleHttp\Client();
+        $response = $client->request('POST', $url, [
+            'json' => compact("info", "userid", "key")
+        ]);
+        return response()->json(['data' => $response->getBody()->getContents()]);
+    });
 });
-
 Route::post('/register', 'AuthController@register');
 Route::post('/login', 'AuthController@login');
