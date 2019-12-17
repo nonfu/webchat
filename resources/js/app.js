@@ -46,7 +46,7 @@ socket.on('connect', async () => {
     if (userId) {
         socket.emit('login', {
             name: userId,
-            token: token
+            api_token: token
         });
     }
     if (roomId) {

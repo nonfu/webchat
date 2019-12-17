@@ -3,7 +3,7 @@
         <div>
             <mu-list>
                 <mu-sub-header>最近聊天记录</mu-sub-header>
-                <mu-list-item avatar button :ripple="false" @click="chatwindow('room1')">
+                <mu-list-item avatar button :ripple="false" @click="chatwindow('1')">
                     <mu-list-item-action>
                         <mu-avatar>
                             <img :src="house1">
@@ -14,7 +14,7 @@
                         <mu-icon value="chat_bubble"></mu-icon>
                     </mu-list-item-action>
                 </mu-list-item>
-                <mu-list-item avatar button :ripple="false" @click="chatwindow('room2')">
+                <mu-list-item avatar button :ripple="false" @click="chatwindow('2')">
                     <mu-list-item-action>
                         <mu-avatar>
                             <img :src="house2">

@@ -28,6 +28,7 @@ Route::middleware('auth:api')->group(function () {
         ]);
         return response()->json(['data' => $response->getBody()->getContents()]);
     });
+    Route::get('/history/message', 'MessageController@history');
 });
 Route::post('/register', 'AuthController@register');
 Route::post('/login', 'AuthController@login');

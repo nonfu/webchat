@@ -5,7 +5,7 @@
         <div class="all-chat">
           <div slot="title">在线人员</div>
           <div v-for="(obj,index) in getUsers" class="online" :key="index">
-            <img :src="obj.src" alt="">
+            <img :src="obj.avatar" alt="">
           </div>
         </div>
         <mu-button slot="actions" flat color="primary" @click="closeSimpleDialog">关闭</mu-button>
@@ -172,7 +172,8 @@
       const obj = {
         name: this.userid,
         src: this.src,
-        roomid: this.roomid
+        roomid: this.roomid,
+        api_token: this.auth_token
       };
       socket.emit('room', obj);
       socket.on('room', function (obj) {
@@ -186,7 +187,8 @@
         const data = {
           total: +this.getTotal,
           current: +this.current,
-          roomid: this.roomid
+          roomid: this.roomid,
+          api_token: this.auth_token
         };
         this.isloading = true;
         await this.$store.dispatch('getAllMessHistory', data);
@@ -203,7 +205,8 @@
           const data = {
             total: +this.getTotal,
             current: +this.getCurrent,
-            roomid: this.roomid
+            roomid: this.roomid,
+            api_token: this.auth_token
           };
           this.isloading = true;
           await this.$store.dispatch('getAllMessHistory', data);
@@ -235,19 +238,20 @@
       },
       handleGithub() {
         Alert({
-          content: 'https://github.com/hua1995116/webchat'
+          content: 'https://github.com/nonfu/webchat'
         });
       },
       handleTips() {
         Alert({
-          title: '请我喝杯奶茶',
-          html: '<div><img style="width: 200px" src="//s3.qiufengh.com/money/WechatIMG64.jpeg" /></div>'
+          title: '请我喝杯咖啡',
+          html: '<div><img style="width: 200px" src="https://xueyuanjun.com/wp-content/uploads/2019/05/e7156cfe0196dd7d7ea4f8f5f10b8d1a.jpeg" /></div>'
         });
       },
       goback () {
         const obj = {
           name: this.userid,
-          roomid: this.roomid
+          roomid: this.roomid,
+          api_token: this.auth_token,
         };
         socket.emit('roomout', obj);
         this.$router.goBack();
@@ -276,7 +280,8 @@
               img: fr.result,
               msg: '',
               roomid: that.roomid,
-              time: new Date()
+              time: new Date(),
+              api_token: this.auth_token
             };
             socket.emit('message', obj);
           };
@@ -309,7 +314,8 @@
             img: '',
             msg,
             roomid: this.roomid,
-            time: new Date()
+            time: new Date(),
+            api_token: this.auth_token
           };
           // 传递消息信息
           socket.emit('message', obj);
@@ -334,7 +340,8 @@
       ]),
       ...mapState({
         userid: state => state.userInfo.userid,
-        src: state => state.userInfo.src
+        src: state => state.userInfo.src,
+        auth_token: state => state.userInfo.token,
       })
     },
     components: {

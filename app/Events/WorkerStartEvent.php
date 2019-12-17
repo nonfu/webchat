@@ -10,7 +10,6 @@ use App\Services\Websocket\Rooms\RoomContract;
 use App\Services\WebSocket\WebSocket;
 use Hhxsv5\LaravelS\Swoole\Events\WorkerStartInterface;
 use Illuminate\Container\Container;
-use Illuminate\Pipeline\Pipeline;
 use Swoole\Http\Server;
 
 class WorkerStartEvent implements WorkerStartInterface

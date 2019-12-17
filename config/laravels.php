@@ -31,7 +31,7 @@ return [
         ],
         'parser' => \App\Services\WebSocket\SocketIO\SocketIOParser::class,
         'drivers' => [
-            'default' => 'table',
+            'default' => 'redis',
             'table' => \App\Services\Websocket\Rooms\TableRoom::class,
             'redis' => \App\Services\Websocket\Rooms\RedisRoom::class,
             'settings' => [

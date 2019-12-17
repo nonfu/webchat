@@ -3,6 +3,7 @@ namespace App\Services\WebSocket;
 
 use App\Services\Websocket\Rooms\RoomContract;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Log;
 use Swoole\WebSocket\Server;
 
 class WebSocket
@@ -97,7 +98,7 @@ class WebSocket
                 $this->to[] = $value;
             }
         }
-
+Log::info('to:' . json_encode($this->to));
         return $this;
     }
 
@@ -144,7 +145,7 @@ class WebSocket
     public function emit(string $event, $data): bool
     {
         $fds = $this->getFds();
-        $assigned = ! empty($this->to);
+        $assigned = !empty($this->to);
 
         // if no fds are found, but rooms are assigned
         // that means trying to emit to a non-existing room
@@ -161,7 +162,7 @@ class WebSocket
             'event'     => $event,
             'message'   => $data,
         ];
-
+Log::info('payload:' . json_encode($payload));
         $server = app('swoole');
         $pusher = Pusher::make($payload, $server);
         $parser = app('swoole.parser');
