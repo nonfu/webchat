@@ -48,7 +48,7 @@
           <Message
             v-for="obj in getInfos"
             :key="obj._id"
-            :is-self="obj.username === userid"
+            :is-self="obj.userid === userid"
             :name="obj.username"
             :head="obj.src"
             :msg="obj.msg"

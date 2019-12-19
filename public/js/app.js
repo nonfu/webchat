@@ -2587,7 +2587,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               obj = {
                 name: this.userid,
                 src: this.src,
-                roomid: this.roomid
+                roomid: this.roomid,
+                api_token: this.auth_token
               };
               _socket__WEBPACK_IMPORTED_MODULE_13__["default"].emit('room', obj);
               _socket__WEBPACK_IMPORTED_MODULE_13__["default"].on('room', function (obj) {
@@ -2610,7 +2611,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                         data = {
                           total: +_this.getTotal,
                           current: +_this.current,
-                          roomid: _this.roomid
+                          roomid: _this.roomid,
+                          api_token: _this.auth_token
                         };
                         _this.isloading = true;
                         _context2.next = 4;
@@ -2652,7 +2654,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                           data = {
                             total: +_this.getTotal,
                             current: +_this.getCurrent,
-                            roomid: _this.roomid
+                            roomid: _this.roomid,
+                            api_token: _this.auth_token
                           };
                           _this.isloading = true;
                           _context3.next = 6;
@@ -2713,19 +2716,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     handleGithub: function handleGithub() {
       Object(_components_Alert__WEBPACK_IMPORTED_MODULE_8__["default"])({
-        content: 'https://github.com/hua1995116/webchat'
+        content: 'https://github.com/nonfu/webchat'
       });
     },
     handleTips: function handleTips() {
       Object(_components_Alert__WEBPACK_IMPORTED_MODULE_8__["default"])({
-        title: '请我喝杯奶茶',
-        html: '<div><img style="width: 200px" src="//s3.qiufengh.com/money/WechatIMG64.jpeg" /></div>'
+        title: '请我喝杯咖啡',
+        html: '<div><img style="width: 200px" src="https://xueyuanjun.com/wp-content/uploads/2019/05/e7156cfe0196dd7d7ea4f8f5f10b8d1a.jpeg" /></div>'
       });
     },
     goback: function goback() {
       var obj = {
         name: this.userid,
-        roomid: this.roomid
+        roomid: this.roomid,
+        api_token: this.auth_token
       };
       _socket__WEBPACK_IMPORTED_MODULE_13__["default"].emit('roomout', obj);
       this.$router.goBack();
@@ -2757,7 +2761,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             img: fr.result,
             msg: '',
             roomid: that.roomid,
-            time: new Date()
+            time: new Date(),
+            api_token: this.auth_token
           };
           _socket__WEBPACK_IMPORTED_MODULE_13__["default"].emit('message', obj);
         };
@@ -2792,7 +2797,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           img: '',
           msg: msg,
           roomid: this.roomid,
-          time: new Date()
+          time: new Date(),
+          api_token: this.auth_token
         }; // 传递消息信息
 
         _socket__WEBPACK_IMPORTED_MODULE_13__["default"].emit('message', obj);
@@ -2810,6 +2816,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     src: function src(state) {
       return state.userInfo.src;
+    },
+    auth_token: function auth_token(state) {
+      return state.userInfo.token;
     }
   })),
   components: {
@@ -32900,7 +32909,7 @@ var render = function() {
                 _vm._v(" "),
                 _vm._l(_vm.getUsers, function(obj, index) {
                   return _c("div", { key: index, staticClass: "online" }, [
-                    _c("img", { attrs: { src: obj.src, alt: "" } })
+                    _c("img", { attrs: { src: obj.avatar, alt: "" } })
                   ])
                 })
               ],
@@ -32983,7 +32992,7 @@ var render = function() {
                 return _c("Message", {
                   key: obj._id,
                   attrs: {
-                    "is-self": obj.username === _vm.userid,
+                    "is-self": obj.userid === _vm.userid,
                     name: obj.username,
                     head: obj.src,
                     msg: obj.msg,
@@ -33409,7 +33418,7 @@ var render = function() {
                 attrs: { avatar: "", button: "", ripple: false },
                 on: {
                   click: function($event) {
-                    return _vm.chatwindow("room1")
+                    return _vm.chatwindow("1")
                   }
                 }
               },
@@ -33439,7 +33448,7 @@ var render = function() {
                 attrs: { avatar: "", button: "", ripple: false },
                 on: {
                   click: function($event) {
-                    return _vm.chatwindow("room2")
+                    return _vm.chatwindow("2")
                   }
                 }
               },
@@ -51110,7 +51119,7 @@ var Service = {
   RegisterUser: function RegisterUser(data) {
     return _axios__WEBPACK_IMPORTED_MODULE_0__["default"].post('/register', data);
   },
-  // 获取当前房间所有历史记录
+  // 获取当前房间所有历史聊天记录
   RoomHistoryAll: function RoomHistoryAll(data) {
     return _axios__WEBPACK_IMPORTED_MODULE_0__["default"].get('/history/message', {
       params: data
@@ -51234,7 +51243,7 @@ _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function 
           if (userId) {
             _socket__WEBPACK_IMPORTED_MODULE_5__["default"].emit('login', {
               name: userId,
-              token: token
+              api_token: token
             });
           }
 
