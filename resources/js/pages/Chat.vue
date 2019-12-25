@@ -267,10 +267,8 @@
         if (file1) {
           const formdata = new window.FormData();
           formdata.append('file', file1);
-          formdata.append('username', this.userid);
-          formdata.append('src', this.src);
+          formdata.append('api_token', this.auth_token);
           formdata.append('roomid', that.roomid);
-          formdata.append('time', new Date());
           this.$store.dispatch('uploadImg', formdata);
           const fr = new window.FileReader();
           fr.onload = function () {
@@ -281,7 +279,7 @@
               msg: '',
               roomid: that.roomid,
               time: new Date(),
-              api_token: this.auth_token
+              api_token: that.auth_token
             };
             socket.emit('message', obj);
           };

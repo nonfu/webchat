@@ -13,5 +13,6 @@
 - [十一、进入聊天室后获取历史聊天记录](https://xueyuanjun.com/post/21326)
 - [十二、加入和退出聊天室房间功能实现](https://xueyuanjun.com/post/21337)
 - [十三、发送文本/表情消息](https://xueyuanjun.com/post/21351)
-- 十四、发送图片消息
+- [十四、发送图片消息](https://xueyuanjun.com/post/21360)
 - 十五、代码优化
+- 十六、性能优化

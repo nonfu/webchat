@@ -2747,10 +2747,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       if (file1) {
         var formdata = new window.FormData();
         formdata.append('file', file1);
-        formdata.append('username', this.userid);
-        formdata.append('src', this.src);
+        formdata.append('api_token', this.auth_token);
         formdata.append('roomid', that.roomid);
-        formdata.append('time', new Date());
         this.$store.dispatch('uploadImg', formdata);
         var fr = new window.FileReader();
 
@@ -2762,7 +2760,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             msg: '',
             roomid: that.roomid,
             time: new Date(),
-            api_token: this.auth_token
+            api_token: that.auth_token
           };
           _socket__WEBPACK_IMPORTED_MODULE_13__["default"].emit('message', obj);
         };
