@@ -1,11 +1,11 @@
 <template>
   <div class="wrapper">
     <Header></Header>
-    <vue-cropper 
-      ref="cropper" 
-      :fixed="option.fixed" 
-      :img="option.img" 
-      :outputSize="option.size" 
+    <vue-cropper
+      ref="cropper"
+      :fixed="option.fixed"
+      :img="option.img"
+      :outputSize="option.size"
       :outputType="option.outputType"
       :info="option.info"
       :canMoveBox="option.canMoveBox"
@@ -57,11 +57,10 @@
           let files = new window.File([data], this.name, {type: this.type});
           const formdata = new window.FormData();
           formdata.append('file', files);
-          formdata.append('username', getItem('userid'));
+          formdata.append('api_token', this.auth_token);
           const res = await this.$store.dispatch('uploadAvatar', formdata);
           loading.hide();
           if (res.errno === 0) {
-            console.log(res);
             console.log(res.data.url);
             this.$store.commit('setUserInfo', {
               type: 'src',
@@ -127,7 +126,8 @@
     computed: {
       ...mapState({
         userid: state => state.userInfo.userid,
-        src: state => state.userInfo.src
+        src: state => state.userInfo.src,
+        auth_token: state => state.userInfo.token
       })
     }
   };

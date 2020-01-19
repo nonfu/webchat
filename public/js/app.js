@@ -1801,6 +1801,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {},
   data: function data() {
@@ -2183,7 +2187,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   });
                   formdata = new window.FormData();
                   formdata.append('file', files);
-                  formdata.append('username', Object(_utils_localStorage__WEBPACK_IMPORTED_MODULE_3__["getItem"])('userid'));
+                  formdata.append('api_token', _this.auth_token);
                   _context.next = 6;
                   return _this.$store.dispatch('uploadAvatar', formdata);
 
@@ -2192,11 +2196,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   _components_loading__WEBPACK_IMPORTED_MODULE_7__["default"].hide();
 
                   if (!(res.errno === 0)) {
-                    _context.next = 17;
+                    _context.next = 16;
                     break;
                   }
 
-                  console.log(res);
                   console.log(res.data.url);
 
                   _this.$store.commit('setUserInfo', {
@@ -2204,23 +2207,23 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     value: res.data.url
                   });
 
-                  _context.next = 14;
+                  _context.next = 13;
                   return Object(_components_Alert__WEBPACK_IMPORTED_MODULE_4__["default"])({
                     content: '上传成功'
                   });
 
-                case 14:
+                case 13:
                   _this.$router.push('/home');
 
-                  _context.next = 18;
+                  _context.next = 17;
                   break;
 
-                case 17:
+                case 16:
                   Object(_components_Alert__WEBPACK_IMPORTED_MODULE_4__["default"])({
                     content: '上传失败'
                   });
 
-                case 18:
+                case 17:
                 case "end":
                   return _context.stop();
               }
@@ -2319,6 +2322,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     src: function src(state) {
       return state.userInfo.src;
+    },
+    auth_token: function auth_token(state) {
+      return state.userInfo.token;
     }
   }))
 });
@@ -2747,7 +2753,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       if (file1) {
         var formdata = new window.FormData();
         formdata.append('file', file1);
-        formdata.append('api_token', this.auth_token);
+        formdata.append('api_token', that.auth_token);
         formdata.append('roomid', that.roomid);
         this.$store.dispatch('uploadImg', formdata);
         var fr = new window.FileReader();
@@ -32432,18 +32438,25 @@ var render = function() {
           "mu-appbar",
           { attrs: { title: "Title" } },
           [
-            _c("mu-icon-button", {
-              attrs: { slot: "left", icon: "chevron_left" },
-              on: { click: _vm.goback },
-              slot: "left"
-            }),
+            _c(
+              "mu-button",
+              {
+                attrs: { slot: "left", icon: "" },
+                on: { click: _vm.goback },
+                slot: "left"
+              },
+              [_c("mu-icon", { attrs: { value: "chevron_left" } })],
+              1
+            ),
             _vm._v(" "),
             _c("div", { staticClass: "center" }),
             _vm._v(" "),
-            _c("mu-icon-button", {
-              attrs: { slot: "right", icon: "expand_more" },
-              slot: "right"
-            })
+            _c(
+              "mu-button",
+              { attrs: { slot: "right", icon: "" }, slot: "right" },
+              [_c("mu-icon", { attrs: { value: "expand_more" } })],
+              1
+            )
           ],
           1
         )
@@ -53017,10 +53030,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var socket_io_client__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(socket_io_client__WEBPACK_IMPORTED_MODULE_0__);
 // 通过 Socket.io 客户端发起 WebSocket 请求
 
-var socket = socket_io_client__WEBPACK_IMPORTED_MODULE_0___default()('http://webchats.test', {
-  path: '/ws',
-  transports: ['websocket']
-});
+var socket = socket_io_client__WEBPACK_IMPORTED_MODULE_0___default()('http://webchats.test');
 /* harmony default export */ __webpack_exports__["default"] = (socket);
 
 /***/ }),

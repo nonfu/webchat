@@ -19,9 +19,8 @@ Route::get('/test', function () {
     return 'hello world!';
 });
 
-Route::get('page/{id?}', function($id = 0){
-    dd($id);
-});
+Route::get('/socket.io', 'SocketIOController@upgrade');
+Route::post('/socket.io', 'SocketIOController@ok');
 
 Route::get('download', function() {
     return response()->streamDownload(function(){

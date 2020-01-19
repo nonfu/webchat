@@ -23,8 +23,6 @@ use App\Services\Websocket\Facades\Websocket as WebsocketProxy;
 WebsocketProxy::on('connect', function (WebSocket $websocket, Request $request) {
     // 发送欢迎信息
     $websocket->setSender($request->fd);
-    $websocket->emit('connect', '欢迎访问聊天室');
-
 });
 
 WebsocketProxy::on('room', function (WebSocket $websocket, $data) {

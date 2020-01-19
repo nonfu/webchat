@@ -2,10 +2,14 @@
   <div class="header">
       <div class="title">
         <mu-appbar title="Title">
-            <mu-icon-button icon="chevron_left" slot="left" @click="goback"/>
+            <mu-button icon slot="left" @click="goback">
+                <mu-icon value="chevron_left"></mu-icon>
+            </mu-button>
             <div class="center">
             </div>
-            <mu-icon-button icon="expand_more" slot="right"/>
+            <mu-button icon slot="right">
+                <mu-icon value="expand_more"></mu-icon>
+            </mu-button>
         </mu-appbar>
         </div>
   </div>

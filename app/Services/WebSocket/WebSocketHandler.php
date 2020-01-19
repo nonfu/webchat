@@ -41,6 +41,7 @@ class WebSocketHandler implements WebSocketHandlerInterface
             $connectPayload = Packet::MESSAGE . Packet::CONNECT;
             $server->push($request->fd, $initPayload);
             $server->push($request->fd, $connectPayload);
+            return;
         }
         Log::info('WebSocket 连接建立:' . $request->fd);
         if ($this->websocket->eventExists('connect')) {

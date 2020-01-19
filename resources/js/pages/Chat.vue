@@ -267,7 +267,7 @@
         if (file1) {
           const formdata = new window.FormData();
           formdata.append('file', file1);
-          formdata.append('api_token', this.auth_token);
+          formdata.append('api_token', that.auth_token);
           formdata.append('roomid', that.roomid);
           this.$store.dispatch('uploadImg', formdata);
           const fr = new window.FileReader();

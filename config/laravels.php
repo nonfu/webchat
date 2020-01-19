@@ -118,8 +118,8 @@ return [
         'enable_reuse_port'  => true,
         'enable_coroutine'   => false,
         'http_compression'   => false,
-        'heartbeat_idle_time' => 600,
-        'heartbeat_check_interval' => 60,
+        'heartbeat_idle_time' => 60,
+        'heartbeat_check_interval' => 25,
 
         // Slow log
         // 'request_slowlog_timeout' => 2,

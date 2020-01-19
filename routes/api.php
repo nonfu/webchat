@@ -30,6 +30,7 @@ Route::middleware('auth:api')->group(function () {
     });
     Route::get('/history/message', 'MessageController@history');
     Route::post('/file/uploadimg', 'FileController@uploadImage');
+    Route::post('/file/avatar', 'FileController@avatar');
 });
 Route::post('/register', 'AuthController@register');
 Route::post('/login', 'AuthController@login');
