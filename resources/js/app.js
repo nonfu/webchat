@@ -9,7 +9,6 @@ import router from './router';   // router
 import store from './store';     // store
 import socket from './socket';
 import {queryString} from './utils/queryString';
-
 import MuseUI from 'muse-ui';    // muse-ui组件
 Vue.use(MuseUI);
 
@@ -77,7 +76,6 @@ socket.on('disconnect', () => {
 
 socket.on('message', function (obj) {
     store.commit('addRoomDetailInfos', [obj]);
-    console.log(Notification.permission);
     if (Notification.permission === "granted") {
         popNotice(obj);
     } else if (Notification.permission !== "denied") {

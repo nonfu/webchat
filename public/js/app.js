@@ -51310,7 +51310,6 @@ _socket__WEBPACK_IMPORTED_MODULE_5__["default"].on('disconnect', function () {
 });
 _socket__WEBPACK_IMPORTED_MODULE_5__["default"].on('message', function (obj) {
   _store__WEBPACK_IMPORTED_MODULE_4__["default"].commit('addRoomDetailInfos', [obj]);
-  console.log(Notification.permission);
 
   if (Notification.permission === "granted") {
     popNotice(obj);
@@ -53028,9 +53027,12 @@ router.afterEach(function (route) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var socket_io_client__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! socket.io-client */ "./node_modules/socket.io-client/lib/index.js");
 /* harmony import */ var socket_io_client__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(socket_io_client__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./store */ "./resources/js/store/index.js");
 // 通过 Socket.io 客户端发起 WebSocket 请求
 
-var socket = socket_io_client__WEBPACK_IMPORTED_MODULE_0___default()('http://webchats.test');
+
+var api_token = _store__WEBPACK_IMPORTED_MODULE_1__["default"].state.userInfo.token;
+var socket = socket_io_client__WEBPACK_IMPORTED_MODULE_0___default()('http://webchats.test?api_token=' + api_token);
 /* harmony default export */ __webpack_exports__["default"] = (socket);
 
 /***/ }),

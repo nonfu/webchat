@@ -1,5 +1,4 @@
 <?php
-
 use App\Count;
 use App\User;
 use App\Message;
@@ -23,10 +22,12 @@ use App\Services\Websocket\Facades\Websocket as WebsocketProxy;
 WebsocketProxy::on('connect', function (WebSocket $websocket, Request $request) {
     // 发送欢迎信息
     $websocket->setSender($request->fd);
+    $websocket->loginUsing(auth('api')->user());
 });
 
 WebsocketProxy::on('room', function (WebSocket $websocket, $data) {
-    if (!empty($data['api_token']) && ($user = User::where('api_token', $data['api_token'])->first())) {
+    if ($userId = $websocket->getUserId()) {
+        $user = User::find($userId);
         // 从请求数据中获取房间ID
         if (empty($data['roomid'])) {
             return;
@@ -64,7 +65,8 @@ WebsocketProxy::on('room', function (WebSocket $websocket, $data) {
 });
 
 WebsocketProxy::on('message', function (WebSocket $websocket, $data) {
-    if (!empty($data['api_token']) && ($user = User::where('api_token', $data['api_token'])->first())) {
+    if ($userId = $websocket->getUserId()) {
+        $user = User::find($userId);
         // 获取消息内容
         $msg = $data['msg'];
         $img = $data['img'];
@@ -129,10 +131,12 @@ WebsocketProxy::on('roomout', function (WebSocket $websocket, $data) {
 
 WebsocketProxy::on('disconnect', function (WebSocket $websocket, $data) {
     roomout($websocket, $data);
+    $websocket->logout();
 });
 
 function roomout(WebSocket $websocket, $data) {
-    if (!empty($data['api_token']) && ($user = User::where('api_token', $data['api_token'])->first())) {
+    if ($userId = $websocket->getUserId()) {
+        $user = User::find($userId);
         if (empty($data['roomid'])) {
             return;
         }
@@ -154,7 +158,8 @@ function roomout(WebSocket $websocket, $data) {
 }
 
 WebsocketProxy::on('login', function (WebSocket $websocket, $data) {
-    if (!empty($data['api_token']) && ($user = User::where('api_token', $data['api_token'])->first())) {
+    if ($userId = $websocket->getUserId()) {
+        $user = User::find($userId);
         // 将用户与指定fd连接关联起来保存到Redis中
         Redis::hset('socket_id', $user->id, $websocket->getSender());
         // 获取未读消息

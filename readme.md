@@ -14,5 +14,6 @@
 - [十二、加入和退出聊天室房间功能实现](https://xueyuanjun.com/post/21337)
 - [十三、发送文本/表情消息](https://xueyuanjun.com/post/21351)
 - [十四、发送图片消息](https://xueyuanjun.com/post/21360)
-- 十五、代码优化
-- 十六、性能优化
+- [十五、用户头像上传](https://xueyuanjun.com/post/21373)
+- [十六、通过心跳连接替换轮询保持长连接](https://xueyuanjun.com/post/21412)
+- [十七、Websocket 通信用户认证逻辑优化](https://xueyuanjun.com/post/21413)

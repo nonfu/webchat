@@ -8,6 +8,11 @@ class SocketIOController extends Controller
 {
     protected $transports = ['polling', 'websocket'];
 
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+    }
+
     public function upgrade(Request $request)
     {
         if (! in_array($request->input('transport'), $this->transports)) {
